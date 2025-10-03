@@ -1,0 +1,1 @@
+# deteil_Pro_mobile_app
