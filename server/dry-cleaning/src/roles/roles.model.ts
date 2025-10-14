@@ -1,4 +1,6 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import {BelongsToMany, Column, Model, Table} from 'sequelize-typescript';
+import {User} from "../users/users.model";
+import {UserRoles} from "./user-roles-model";
 
 interface RolesCreationAttrs{
    value:string;
@@ -6,7 +8,7 @@ interface RolesCreationAttrs{
 }
 
 @Table({ tableName: 'roles' })
-export class Roles extends Model<Roles,RolesCreationAttrs> {
+export class Role extends Model<Role,RolesCreationAttrs> {
     @Column({
         autoIncrement: true,
         primaryKey: true,
@@ -25,4 +27,6 @@ export class Roles extends Model<Roles,RolesCreationAttrs> {
     declare description: string;
 
 
+    @BelongsToMany( () => User, () => UserRoles)
+    users: User[];
 }
