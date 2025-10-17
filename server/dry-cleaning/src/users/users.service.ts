@@ -18,6 +18,7 @@ const role = await this.roleService.getRoleByValue("USER")
             throw new Error('Роль USER не найдена');
         }
         await user.$set('roles',[role.id])
+        user.roles = [role]
         return user;
 
     }
@@ -26,4 +27,8 @@ const role = await this.roleService.getRoleByValue("USER")
         return user;
     }
 
+    async getUserByPhone(phone:string){
+        const user = await this.userRepository.findOne({where: {phone},include: {all : true}})
+        return user;
+    }
 }
