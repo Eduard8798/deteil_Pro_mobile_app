@@ -1,7 +1,7 @@
 // App.tsx
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import MyTabs from "./src/navigation/MyTabs";
+import  MyTabs from "./src/navigation/MyTabs";
 
 
 export default function App() {
