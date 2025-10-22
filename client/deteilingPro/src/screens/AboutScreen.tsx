@@ -12,7 +12,7 @@ interface AboutScreenProps{
 const AboutScreen : FC<AboutScreenProps> = ({route}) => {
     const nameUser = route.params?.name;
     return (
-
+//change text for screen
         <View style={{flex:1,justifyContent:'center',
             alignItems: 'center'}}>
             <Text>User name : {nameUser} </Text>
