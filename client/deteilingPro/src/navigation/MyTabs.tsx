@@ -1,15 +1,15 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import AboutScreen from "../screens/AboutScreen";
-import SettingScreen from "../screens/SettingScreen";
+import WashScreen from '../screens/WashScreen';
+import NewsScreen from "../screens/NewsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 export type RootTabParamList = {
     Home: undefined;
-    Profile: { userId: number };
-    About: {name: "John"};
-    Setting: { numberId : 5};
+    Wash: { userId: number };
+    News: {name: "John"};
+    Profile: { numberId : 5};
 
 };
 
@@ -24,10 +24,10 @@ const MyTabs = () => {
                 tabBarInactiveTintColor: '#888',
             }}
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Главная' }} />
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Профиль' }} />
-            <Tab.Screen name="About" component={AboutScreen} options={{ title: 'О нас' }} />
-            <Tab.Screen name="Setting" component={SettingScreen} options={{ title: 'Настройки' }} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Головна' }} />
+            <Tab.Screen name="Wash" component={WashScreen} options={{ title: 'Мийки' }} />
+            <Tab.Screen name="News" component={NewsScreen} options={{ title: 'Новини' }} />
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Профіль' }} />
         </Tab.Navigator>
     );
 };

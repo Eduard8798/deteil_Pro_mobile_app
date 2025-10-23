@@ -3,13 +3,13 @@ import {Text, View} from "react-native";
 import {RouteProp} from "@react-navigation/native";
 import {RootTabParamList} from "../navigation/MyTabs";
 
-type ProfileScreenRouteProp = RouteProp<RootTabParamList, 'About'>;
+type ProfileScreenRouteProp = RouteProp<RootTabParamList, 'News'>;
 
 interface AboutScreenProps{
     route:ProfileScreenRouteProp
 }
 
-const AboutScreen : FC<AboutScreenProps> = ({route}) => {
+const NewsScreen : FC<AboutScreenProps> = ({route}) => {
     const nameUser = route.params?.name;
     return (
 //change text for screen
@@ -20,4 +20,4 @@ const AboutScreen : FC<AboutScreenProps> = ({route}) => {
     );
 };
 
-export default AboutScreen;
+export default NewsScreen;
