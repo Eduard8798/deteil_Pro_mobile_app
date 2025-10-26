@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
-import {Animated, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootTabParamList} from "../navigation/MyTabs";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
+import MapScreenNavigation from "../page/MapScreenNavigation";
 import MapScreen from "../page/MapScreen";
 
 
@@ -18,8 +19,12 @@ const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
             <Text style={styles.text}> Рахунок: ГРН</Text>
 
             <View>
-                <MapScreen/>
+                <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                    <MapScreenNavigation />
+                </TouchableOpacity>
 
+                {/*<MapScreenNavigation/>*/}
+                {/*<MapScreen/>*/}
             </View>
         </View>
     );

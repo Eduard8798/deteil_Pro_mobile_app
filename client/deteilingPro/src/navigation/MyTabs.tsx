@@ -10,6 +10,7 @@ export type RootTabParamList = {
     Wash: { userId: number };
     News: {name: "John"};
     Profile: { numberId : 5};
+    MapScreen:undefined;
 
 };
 
