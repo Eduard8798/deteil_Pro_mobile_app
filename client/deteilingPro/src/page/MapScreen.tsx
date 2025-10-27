@@ -1,18 +1,26 @@
 import React, {FC, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Alert} from 'react-native';
-import MapView, {Marker} from "react-native-maps";
+import {StyleSheet, View, Text, Alert, ActivityIndicator, Pressable} from 'react-native';
+import MapView, {Marker, Region} from "react-native-maps";
 import * as Location from 'expo-location';
+import {useNavigation} from "@react-navigation/native";
+import {Ionicons} from '@expo/vector-icons';
 
 interface MapScreenProps {
 
 }
 
+interface MapMarker{
+    latitude:number;
+    longitude:number;
+}
 const MapScreen: FC<MapScreenProps> = () => {
+
+    const navigation = useNavigation();
 
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
-    const [latitude, setLatitude] = useState<number | null>(null);
-    const [longitude, setLongitude] = useState<number | null>(null);
+    const [region, setRegion] = useState<Region | null>(null);
+    const [marker,setMarker] = useState<MapMarker | null>(null);
 
     useEffect(() => {
         async function getCurrentLocation() {
@@ -25,6 +33,14 @@ const MapScreen: FC<MapScreenProps> = () => {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
+
+            setRegion({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+            });
+            setMarker({latitude:49.411389,longitude:32.068693})
         }
 
         getCurrentLocation();
@@ -33,36 +49,31 @@ const MapScreen: FC<MapScreenProps> = () => {
     useEffect(() => {
         if (errorMsg) {
             Alert.alert("Помилка з доступом локації");
-        } else if (location) {
-
-            setLatitude(location.coords.latitude);
-            setLongitude(location.coords.longitude);
-
         }
-    }, [location])
-    useEffect(() => {
-        if (latitude && longitude) {
-            console.log('Updated latitude:', latitude, 'Updated longitude:', longitude);
-        }
-    }, [latitude, longitude]);
+    }, [errorMsg])
 
+    if (!region) {
+        return (
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color="blue"/>
+            </View>
+        );
+    }
 
 
     return (
         <View style={styles.container}>
+            <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+                <Ionicons name="arrow-back" size={28} color="black" />
+            </Pressable>
             <MapView style={styles.map}
-                     initialRegion={{
-                         latitude: latitude || 0,
-                         longitude: longitude || 0,
-                         latitudeDelta: 0.05,
-                         longitudeDelta: 0.05,
-                     }}
+                     region={region}
             >
-                {latitude && longitude && (
-                    <Marker coordinate={{
-                        latitude: latitude,
-                        longitude: longitude
-                    }}/>
+                {marker && (
+                <Marker coordinate={{
+                    latitude: marker?.latitude,
+                    longitude: marker?.longitude
+                }}/>
                 )}
 
 
@@ -77,8 +88,6 @@ export default MapScreen;
 
 const styles = StyleSheet.create({
     container: {
-        // width: 300,
-        // height: 100,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -87,5 +96,23 @@ const styles = StyleSheet.create({
     map: {
         width: '100%',
         height: '100%',
+    },
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backButton: {
+        position: 'absolute',
+        top: 50,
+        left: 20,
+        zIndex: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 6,
+        shadowColor: '#000',
+        shadowOpacity: 0.3,
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 3,
     },
 });
