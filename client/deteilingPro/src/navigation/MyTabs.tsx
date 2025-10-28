@@ -31,6 +31,7 @@ const MyTabs = () => {
                 tabBarBackground: () => (
                     <BlurView tint="light" intensity={100} style={StyleSheet.absoluteFill}/>
                 ),
+                //icon
                     tabBarIcon: ({ color, size, focused }) => {
                         let iconName: keyof typeof Ionicons.glyphMap = 'home';
                         if (route.name === 'Home') {
