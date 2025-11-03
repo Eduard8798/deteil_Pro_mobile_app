@@ -60,17 +60,7 @@ const WashScreen: FC<ProfileScreenProps> = () => {
                 <Text style={styles.text}>Кераміка</Text>
             </View>
         </ImageBackground>
-            <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Поклейка бронеплёнки</Text>
-            </View>
-        </ImageBackground>
+
             <ImageBackground
             source={{
                 uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/dry_cleaning_uiigbp.webp',
