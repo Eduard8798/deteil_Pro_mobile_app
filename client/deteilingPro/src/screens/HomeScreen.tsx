@@ -3,7 +3,6 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootTabParamList} from "../navigation/MyTabs";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import MapScreenNavigation from "../page/MapScreenNavigation";
-import MapScreen from "../page/MapScreen";
 
 
 type HomeScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Home'>;
@@ -23,8 +22,7 @@ const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
                     <MapScreenNavigation />
                 </TouchableOpacity>
 
-                {/*<MapScreenNavigation/>*/}
-                {/*<MapScreen/>*/}
+
             </View>
         </View>
     );

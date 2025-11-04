@@ -1,21 +1,25 @@
 import React, {FC} from 'react';
-import {Animated, Image, ImageBackground, StyleSheet, Text, View} from "react-native";
-import {RootTabParamList} from "../navigation/MyTabs";
-import {RouteProp} from "@react-navigation/native";
+import {Animated, ImageBackground, Pressable, StyleSheet, Text, View} from "react-native";
+import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
+import {RootStackParamList} from "../navigation/RootStack";
 import ScrollView = Animated.ScrollView;
 
-interface ProfileScreenProps {
 
+type WashScreenNavigationProp = BottomTabNavigationProp<RootStackParamList, 'ArmoredFilm'>;
+
+interface ProfileScreenProps {
+    navigation: WashScreenNavigationProp;
 }
 
+const WashScreen: FC<ProfileScreenProps> = ({navigation}) => {
 
-const WashScreen: FC<ProfileScreenProps> = () => {
+
 
     return (
         <ScrollView style={styles.container}
                     contentContainerStyle={styles.contentContainer}
         >
-
+            <Pressable onPress={() => navigation.navigate('ArmoredFilm')}>
             <ImageBackground
                 source={{
                     uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp',
@@ -27,6 +31,8 @@ const WashScreen: FC<ProfileScreenProps> = () => {
                     <Text style={styles.text}>Поклейка бронеплёнки</Text>
                 </View>
             </ImageBackground>
+            </Pressable>
+
             <ImageBackground
             source={{
                 uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/interior_vacuum_cleaner_sw1dlv.jpg',
