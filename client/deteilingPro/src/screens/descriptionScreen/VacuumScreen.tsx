@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-interface VacumScreenProps {
+interface VacuumScreenProps {
 
 }
 
-const VacumScreen: FC<VacumScreenProps> = () => {
+const VacuumScreen: FC<VacuumScreenProps> = () => {
   return (
     <View style={styles.container}>
-      <Text>VacumScreen</Text>
+      <Text>VacuumScreen</Text>
     </View>
   );
 };
 
-export default VacumScreen;
+export default VacuumScreen;
 
 const styles = StyleSheet.create({
   container: {

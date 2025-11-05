@@ -5,7 +5,7 @@ import {RootStackParamList} from "../navigation/RootStack";
 import ScrollView = Animated.ScrollView;
 
 
-type WashScreenNavigationProp = BottomTabNavigationProp<RootStackParamList, 'ArmoredFilm'>;
+type WashScreenNavigationProp = BottomTabNavigationProp<RootStackParamList, 'ArmoredFilmScreen'>;
 
 interface ProfileScreenProps {
     navigation: WashScreenNavigationProp;
@@ -14,81 +14,93 @@ interface ProfileScreenProps {
 const WashScreen: FC<ProfileScreenProps> = ({navigation}) => {
 
 
-
     return (
         <ScrollView style={styles.container}
                     contentContainerStyle={styles.contentContainer}
         >
-            <Pressable onPress={() => navigation.navigate('ArmoredFilm')}>
+            <Pressable style={styles.image} onPress={() => navigation.navigate('ArmoredFilmScreen',
+                {
+                    image: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp'
+                }
+            )}>
+                <ImageBackground
+                    source={{
+                        uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp',
+                    }}
+                    style={styles.image}
+                    imageStyle={styles.imageInner} // можно округлить углы
+                >
+                    <View style={styles.overlay}>
+                        <Text style={styles.text}>Поклейка бронеплёнки</Text>
+                    </View>
+                </ImageBackground>
+            </Pressable>
+
+
+            <Pressable onPress={() => navigation.navigate('VacuumScreen',
+                {
+                    image: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp'
+                }
+            )}>
+                <ImageBackground
+                    source={{
+                        uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/interior_vacuum_cleaner_sw1dlv.jpg',
+                    }}
+                    style={styles.image}
+                    imageStyle={styles.imageInner}
+                >
+                    <View style={styles.overlay}>
+                        <Text style={styles.text}>Послуга пилососа</Text>
+                    </View>
+                </ImageBackground>
+            </Pressable>
+
+
             <ImageBackground
                 source={{
-                    uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/gluing_armored_film_lu6tgt.webp',
+                    uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765527/toner_zgimzk.jpg',
                 }}
                 style={styles.image}
                 imageStyle={styles.imageInner} // можно округлить углы
             >
                 <View style={styles.overlay}>
-                    <Text style={styles.text}>Поклейка бронеплёнки</Text>
+                    <Text style={styles.text}>Тонування</Text>
                 </View>
             </ImageBackground>
-            </Pressable>
+            <ImageBackground
+                source={{
+                    uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/keramic_pynt1o.jpg',
+                }}
+                style={styles.image}
+                imageStyle={styles.imageInner} // можно округлить углы
+            >
+                <View style={styles.overlay}>
+                    <Text style={styles.text}>Кераміка</Text>
+                </View>
+            </ImageBackground>
 
             <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/interior_vacuum_cleaner_sw1dlv.jpg',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Послуга пилососа</Text>
-            </View>
-        </ImageBackground>
+                source={{
+                    uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/dry_cleaning_uiigbp.webp',
+                }}
+                style={styles.image}
+                imageStyle={styles.imageInner} // можно округлить углы
+            >
+                <View style={styles.overlay}>
+                    <Text style={styles.text}>Хімчистка</Text>
+                </View>
+            </ImageBackground>
             <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765527/toner_zgimzk.jpg',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Тонування</Text>
-            </View>
-        </ImageBackground>
-            <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/keramic_pynt1o.jpg',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Кераміка</Text>
-            </View>
-        </ImageBackground>
-
-            <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/dry_cleaning_uiigbp.webp',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Хімчистка</Text>
-            </View>
-        </ImageBackground>
-            <ImageBackground
-            source={{
-                uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/1qb33ngtv1t58jfyp2uy6mjn071y7q7c_bbtaiw.jpg',
-            }}
-            style={styles.image}
-            imageStyle={styles.imageInner} // можно округлить углы
-        >
-            <View style={styles.overlay}>
-                <Text style={styles.text}>Полірування</Text>
-            </View>
-        </ImageBackground>
+                source={{
+                    uri: 'https://res.cloudinary.com/druvfoz4x/image/upload/v1761765526/1qb33ngtv1t58jfyp2uy6mjn071y7q7c_bbtaiw.jpg',
+                }}
+                style={styles.image}
+                imageStyle={styles.imageInner} // можно округлить углы
+            >
+                <View style={styles.overlay}>
+                    <Text style={styles.text}>Полірування</Text>
+                </View>
+            </ImageBackground>
         </ScrollView>
     );
 };
@@ -109,7 +121,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
         justifyContent: 'flex-end',
-        margin:2,
+        margin: 2,
 
     },
     imageInner: {
