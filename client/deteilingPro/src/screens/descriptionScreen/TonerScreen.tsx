@@ -1,15 +1,36 @@
 import React, { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image, ScrollView} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {RootStackParamList} from "../../navigation/RootStack";
+import {Ionicons} from "@expo/vector-icons";
 
 interface TonerScreenProps {
 
 }
+type ArmoredFilmRouteProp = RouteProp<RootStackParamList, 'TonerScreen'>;
 
 const TonerScreen: FC<TonerScreenProps> = () => {
+  const navigation = useNavigation();
+  const route = useRoute<ArmoredFilmRouteProp>();
+  const { image } = route.params
   return (
-    <View style={styles.container}>
-      <Text>TonerScreen</Text>
-    </View>
+      <ScrollView style={styles.container}
+                  contentContainerStyle={styles.contentContainer}>
+        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={28} color="black" />
+        </Pressable>
+
+        <Text style={{fontSize:18,color:'#949497',borderRadius:16,
+          borderWidth:1,borderColor:'#222',padding:12}}>Тонування автомобіля</Text>
+        <Image style={styles.image} source={{uri:image}}/>
+
+        <Text style={styles.textDescription}>
+
+          {"\t"}Тонування — це ефективний спосіб покращити комфорт, безпеку та зовнішній вигляд автомобіля. Якісна тонувальна плівка зменшує нагрів салону в спеку, захищає від шкідливого ультрафіолету, зберігає приватність і запобігає вигоранню оббивки.
+
+          {"\n\t"}Окрім практичних переваг, тонування додає автомобілю стильного та елегантного вигляду. Ми використовуємо сертифіковані плівки, які не спотворюють огляд та відповідають вимогам законодавства.
+        </Text>
+      </ScrollView>
   );
 };
 
@@ -18,7 +39,35 @@ export default TonerScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    backgroundColor:'#030303'
+  },
+  image: {
+    width:350,
+    height:250,
+    margin:50,
+    borderRadius:16
+  },
+  textDescription: {
+    color:'#ffffff',
+    alignItems:'center',
+    maxWidth: 300
+  },
+  contentContainer:{
     alignItems: 'center',
-    justifyContent: 'center',
+    padding:100
+  }, backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    zIndex: 10,
+    backgroundColor: 'white',
+    borderRadius: 30,
+    padding: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 3,
   },
 });
+
