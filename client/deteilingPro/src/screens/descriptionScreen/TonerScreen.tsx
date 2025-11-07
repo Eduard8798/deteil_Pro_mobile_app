@@ -1,34 +1,50 @@
 import React, { FC } from 'react';
-import {View, Text, StyleSheet, Pressable, Image, ScrollView} from 'react-native';
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {RootStackParamList} from "../../navigation/RootStack";
-import {Ionicons} from "@expo/vector-icons";
+import { View, Text, StyleSheet, Pressable, Image, ScrollView } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../navigation/RootStack";
+import { Ionicons } from "@expo/vector-icons";
 
-interface TonerScreenProps {
+interface TonerScreenProps {}
 
-}
-type ArmoredFilmRouteProp = RouteProp<RootStackParamList, 'TonerScreen'>;
+type TonerRouteProp = RouteProp<RootStackParamList, 'TonerScreen'>;
 
 const TonerScreen: FC<TonerScreenProps> = () => {
   const navigation = useNavigation();
-  const route = useRoute<ArmoredFilmRouteProp>();
-  const { image } = route.params
+  const route = useRoute<TonerRouteProp>();
+  const { image } = route.params;
+
   return (
-      <ScrollView style={styles.container}
-                  contentContainerStyle={styles.contentContainer}>
+      <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+      >
         <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </Pressable>
 
-        <Text style={{fontSize:18,color:'#949497',borderRadius:16,
-          borderWidth:1,borderColor:'#222',padding:12}}>Тонування автомобіля</Text>
-        <Image style={styles.image} source={{uri:image}}/>
+        <Text
+            style={{
+              fontSize: 18,
+              color: '#949497',
+              borderRadius: 16,
+              borderWidth: 1,
+              borderColor: '#222',
+              padding: 12,
+            }}
+        >
+          Car Window Tinting
+        </Text>
+
+        <Image style={styles.image} source={{ uri: image }} />
 
         <Text style={styles.textDescription}>
-
-          {"\t"}Тонування — це ефективний спосіб покращити комфорт, безпеку та зовнішній вигляд автомобіля. Якісна тонувальна плівка зменшує нагрів салону в спеку, захищає від шкідливого ультрафіолету, зберігає приватність і запобігає вигоранню оббивки.
-
-          {"\n\t"}Окрім практичних переваг, тонування додає автомобілю стильного та елегантного вигляду. Ми використовуємо сертифіковані плівки, які не спотворюють огляд та відповідають вимогам законодавства.
+          {"\t"}Window tinting is an effective way to improve comfort, safety, and
+          the overall look of your vehicle. High-quality tint films help reduce
+          cabin heat during hot weather, block harmful UV rays, protect your
+          interior from fading, and provide greater privacy.{"\n\n"}
+          Beyond practicality, tinting adds a sleek, elegant appearance to your
+          car. We use only certified films that ensure clear visibility and comply
+          with legal standards.
         </Text>
       </ScrollView>
   );
@@ -39,24 +55,24 @@ export default TonerScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    backgroundColor:'#030303'
+    backgroundColor: '#030303',
   },
   image: {
-    width:350,
-    height:250,
-    margin:50,
-    borderRadius:16
+    width: 350,
+    height: 250,
+    margin: 50,
+    borderRadius: 16,
   },
   textDescription: {
-    color:'#ffffff',
-    alignItems:'center',
-    maxWidth: 300
-  },
-  contentContainer:{
+    color: '#ffffff',
     alignItems: 'center',
-    padding:100
-  }, backButton: {
+    maxWidth: 300,
+  },
+  contentContainer: {
+    alignItems: 'center',
+    padding: 100,
+  },
+  backButton: {
     position: 'absolute',
     top: 50,
     left: 20,
@@ -66,8 +82,7 @@ const styles = StyleSheet.create({
     padding: 6,
     shadowColor: '#000',
     shadowOpacity: 0.3,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 3,
   },
 });
-

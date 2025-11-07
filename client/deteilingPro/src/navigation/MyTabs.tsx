@@ -49,10 +49,10 @@ const MyTabs = () => {
                 }
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{title: 'Головна'}}/>
-            <Tab.Screen name="Wash" component={WashScreen} options={{title: 'Мийки'}}/>
-            <Tab.Screen name="News" component={NewsScreen} options={{title: 'Новини'}}/>
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{title: 'Профіль'}}/>
+            <Tab.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
+            <Tab.Screen name="Wash" component={WashScreen} options={{title: 'Wash'}}/>
+            <Tab.Screen name="News" component={NewsScreen} options={{title: 'News'}}/>
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{title: 'Profile'}}/>
         </Tab.Navigator>
     );
 };
