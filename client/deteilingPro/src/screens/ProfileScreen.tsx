@@ -14,6 +14,7 @@ import {
 
 const AuthScreen: FC = () => {
     return (
+        // android-?
         <SafeAreaView style={styles.safe}>
             <KeyboardAvoidingView
                 style={styles.flex}
