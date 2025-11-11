@@ -11,8 +11,16 @@ import {
     Platform,
     ScrollView,
 } from "react-native";
+import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
+import {RootStackParamList} from "../../navigation/RootStack";
 
-const AuthScreen: FC = () => {
+type ProfileScreenProp = BottomTabNavigationProp<RootStackParamList, 'LoginScreen'>;
+
+interface ProfileScreenProps {
+    navigation: ProfileScreenProp;
+}
+
+const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
     return (
         // android-?
         <SafeAreaView style={styles.safe}>
@@ -66,7 +74,9 @@ const AuthScreen: FC = () => {
                         <View style={styles.footer}>
                             <Text style={styles.small}>Don't have an account?</Text>
                             <Pressable onPress={() => {}}>
-                                <Text style={[styles.linkText, { marginLeft: 8 }]}>Register</Text>
+                                <Text style={[styles.linkText, { marginLeft: 8 }]}
+                                onPress={()=> navigation.navigate('LoginScreen')}
+                                >Register</Text>
                             </Pressable>
                         </View>
                     </View>

@@ -7,11 +7,11 @@ import ScrollView = Animated.ScrollView;
 
 type WashScreenNavigationProp = BottomTabNavigationProp<RootStackParamList, 'ArmoredFilmScreen'>;
 
-interface ProfileScreenProps {
+interface WashScreenProps {
     navigation: WashScreenNavigationProp;
 }
 
-const WashScreen: FC<ProfileScreenProps> = ({navigation}) => {
+const WashScreen: FC<WashScreenProps> = ({navigation}) => {
 
 
     return (

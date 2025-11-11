@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import WashScreen from '../screens/WashScreen';
 import NewsScreen from "../screens/NewsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import ProfileScreen from "../screens/Profile/ProfileScreen";
 import {Ionicons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
 import {StyleSheet} from 'react-native';
@@ -12,7 +12,7 @@ export type RootTabParamList = {
     Home: undefined;
     Wash: { userId: number };
     News: { name: "John" };
-    Profile: { numberId: 5 };
+    Profile: undefined;
     MapScreen: undefined;
 
 };
@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 const MyTabs = () => {
     return (
         <Tab.Navigator
-            screenOptions={({ route }) => ({
+            screenOptions={({route}) => ({
                 tabBarStyle: {
                     position: 'absolute',
                     height: 100,
@@ -32,19 +32,19 @@ const MyTabs = () => {
                     <BlurView tint="light" intensity={100} style={StyleSheet.absoluteFill}/>
                 ),
                 //icon
-                    tabBarIcon: ({ color, size, focused }) => {
-                        let iconName: keyof typeof Ionicons.glyphMap = 'home';
-                        if (route.name === 'Home') {
-                            iconName = focused ? 'home' : 'home-outline';
-                        } else if (route.name === 'Wash') {
-                            iconName = focused ? 'water' : 'water-outline';
-                        } else if (route.name === 'News') {
-                            iconName = focused ? 'newspaper' : 'newspaper-outline';
-                        } else if (route.name === 'Profile') {
-                            iconName = focused ? 'person' : 'person-outline';
-                        }
+                tabBarIcon: ({color, size, focused}) => {
+                    let iconName: keyof typeof Ionicons.glyphMap = 'home';
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if (route.name === 'Wash') {
+                        iconName = focused ? 'water' : 'water-outline';
+                    } else if (route.name === 'News') {
+                        iconName = focused ? 'newspaper' : 'newspaper-outline';
+                    } else if (route.name === 'Profile') {
+                        iconName = focused ? 'person' : 'person-outline';
+                    }
 
-                        return <Ionicons name={iconName} size={26} color={color} />;
+                    return <Ionicons name={iconName} size={26} color={color}/>;
 
                 }
             })}
