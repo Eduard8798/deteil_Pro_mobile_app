@@ -6,6 +6,7 @@ interface LoginScreenProps {
 }
 
 const LoginScreen: FC<LoginScreenProps> = () => {
+  // addScreen
   return (
     <View style={styles.container}>
       <Text>LoginScreen</Text>
