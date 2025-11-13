@@ -10,6 +10,7 @@ import CeramicScreen from "../screens/descriptionScreen/CeramicScreen";
 import DryCleaningScreen from "../screens/descriptionScreen/DryCleaningScreen";
 import PolishingScreen from "../screens/descriptionScreen/PolishingScreen";
 import LoginScreen from "../screens/Profile/LoginScreen";
+import ProfileScreen from "../screens/Profile/ProfileScreen";
 
 export type RootStackParamList = {
     Tabs: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
     DryCleaningScreen: {image : string};
     PolishingScreen: {image : string};
     LoginScreen: undefined;
+    ProfileScreen: undefined;
 
 };
 
@@ -38,6 +40,7 @@ const RootStack = () => {
             <Stack.Screen name="DryCleaningScreen" component={DryCleaningScreen} />
             <Stack.Screen name="PolishingScreen" component={PolishingScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         </Stack.Navigator>
     );
 };

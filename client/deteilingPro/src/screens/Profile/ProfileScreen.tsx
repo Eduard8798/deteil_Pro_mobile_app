@@ -14,7 +14,7 @@ import {
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
 
-type ProfileScreenProp = BottomTabNavigationProp<RootStackParamList, 'LoginScreen'>;
+type ProfileScreenProp = BottomTabNavigationProp<RootStackParamList, 'ProfileScreen'>;
 
 interface ProfileScreenProps {
     navigation: ProfileScreenProp;
