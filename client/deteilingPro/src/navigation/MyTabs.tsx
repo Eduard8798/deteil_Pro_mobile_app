@@ -14,6 +14,7 @@ export type RootTabParamList = {
     News: { name: "John" };
     Profile: undefined;
     MapScreen: undefined;
+    BookingScreen:undefined;
 
 };
 

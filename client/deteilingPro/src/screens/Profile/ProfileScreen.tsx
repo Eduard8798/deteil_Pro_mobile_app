@@ -67,8 +67,10 @@ const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
 
 
 
-                        <Pressable style={styles.guestButton} onPress={() => {}}>
-                            <Text style={styles.guestButtonText}>Login as a guest</Text>
+                        <Pressable style={styles.guestButton} onPress={() => {navigation.navigate('BookingScreen')}}>
+                            <Text style={styles.guestButtonText}
+
+                            >Login as a guest</Text>
                         </Pressable>
 
                         <View style={styles.footer}>

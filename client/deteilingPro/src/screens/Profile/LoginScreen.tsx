@@ -1,9 +1,7 @@
-import React, { FC, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
+import React, {FC, useState} from 'react';
+import {Alert, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
-import {RootStackParamList} from "../../navigation/RootStack";
 import {RootTabParamList} from "../../navigation/MyTabs";
-
 
 
 type LoginScreenProp = BottomTabNavigationProp<RootTabParamList, 'Profile'>;
