@@ -99,7 +99,7 @@ const BookingScreen: FC<BookingProp> = ({navigation}) => {
         setNote('');
         setDatetime(new Date());
     };
-//add
+
     return (
         <View style={styles.safe}>
             <Text style={styles.header}>Registration service</Text>
