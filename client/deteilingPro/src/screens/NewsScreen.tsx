@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Text, View} from "react-native";
+import {ScrollView, Text, View} from "react-native";
 import {RouteProp} from "@react-navigation/native";
 import {RootTabParamList} from "../navigation/MyTabs";
 
@@ -10,13 +10,13 @@ interface AboutScreenProps{
 }
 
 const NewsScreen : FC<AboutScreenProps> = ({route}) => {
-    const nameUser = route.params?.name;
+
     return (
-//change text for screen
-        <View style={{flex:1,justifyContent:'center',
-            alignItems: 'center'}}>
-            <Text>User name : {nameUser} </Text>
-        </View>
+<ScrollView>
+    <View>
+
+    </View>
+</ScrollView>
     );
 };
 

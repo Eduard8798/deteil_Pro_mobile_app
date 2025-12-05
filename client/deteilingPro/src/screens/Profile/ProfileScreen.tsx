@@ -59,7 +59,7 @@ const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
                             <Text style={styles.linkText}>Forgot your password?</Text>
                         </Pressable>
 
-                        <Pressable style={styles.primaryButton} onPress={() => {}}>
+                        <Pressable style={styles.primaryButton} onPress={() => {navigation.navigate('ListApplicationsScreen')}}>
                             <Text style={styles.primaryButtonText}>Login</Text>
                         </Pressable>
 

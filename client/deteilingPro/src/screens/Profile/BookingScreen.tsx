@@ -27,7 +27,7 @@ const SERVICES = [
 
 type BookingScreenProp = BottomTabNavigationProp<RootTabParamList, 'BookingScreen'>;
 
-interface Booking {
+export interface Booking {
     serviceId: string;
     serviceTitle: string;
     name: string;
