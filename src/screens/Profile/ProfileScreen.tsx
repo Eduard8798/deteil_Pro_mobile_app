@@ -1,5 +1,5 @@
 // AuthScreen.tsx
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import {
     SafeAreaView,
     View,
@@ -9,18 +9,57 @@ import {
     Pressable,
     KeyboardAvoidingView,
     Platform,
-    ScrollView,
+    ScrollView, TextInputChangeEvent,
 } from "react-native";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
+import {useLoginMutation} from "../../store/endpoints/authApi";
+import {LoginRequest} from "../../store/type/type";
+import asyncStorage from "@react-native-async-storage/async-storage";
 
 type ProfileScreenProp = BottomTabNavigationProp<RootStackParamList, 'ProfileScreen'>;
 
-interface ProfileScreenProps {
+interface IProfileScreenProps {
     navigation: ProfileScreenProp;
 }
 
-const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
+const AuthScreen: FC<IProfileScreenProps> = ({navigation}) => {
+    const [login] = useLoginMutation();
+    const [dataForm, setDataForm] = useState<LoginRequest>({
+        phone: '',
+        password: ''
+    });
+
+    const handleSubmit = async () => {
+        try {
+
+            const result = await login(
+                dataForm
+            ).unwrap()
+
+            if (result.accessToken) {
+                asyncStorage.setItem('accessToken', result.accessToken)
+            }
+            if (result.refreshToken) {
+
+                asyncStorage.setItem('refreshToken', result.refreshToken)
+            }
+            if (result.refreshToken && result.accessToken) {
+                navigation.navigate('ListApplicationsScreen')
+            }
+        } catch (e) {
+            console.log('Error', e)
+        }
+    }
+
+    const changeValueDataLogin = (field: keyof LoginRequest,
+                                  value: string) => {
+        setDataForm((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
+    };
+
     return (
         // android-?
         <SafeAreaView style={styles.safe}>
@@ -45,29 +84,39 @@ const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
                             placeholderTextColor="#9AA0A6"
                             keyboardType="phone-pad"
                             autoCapitalize="none"
+                            onChangeText={(text) => {
+                                 changeValueDataLogin('phone',text)
+                            }}
                         />
 
-                        <Text style={[styles.label, { marginTop: 16 }]}>Password</Text>
+                        <Text style={[styles.label, {marginTop: 16}]}>Password</Text>
                         <TextInput
                             style={styles.input}
                             placeholder="••••••••"
                             placeholderTextColor="#9AA0A6"
                             secureTextEntry
+                            onChangeText={(text) => {
+                                 changeValueDataLogin('password',text)
+                            }}
                         />
 
-                        <Pressable style={styles.linkContainer} onPress={() => {}}>
+                        <Pressable style={styles.linkContainer} onPress={() => {
+                        }}>
                             <Text style={styles.linkText}>Forgot your password?</Text>
                         </Pressable>
 
-                        <Pressable style={styles.primaryButton} onPress={() => {navigation.navigate('ListApplicationsScreen')}}>
+                        <Pressable style={styles.primaryButton} onPress={()=> {
+                            console.log('work'), handleSubmit()
+                        }}>
                             <Text style={styles.primaryButtonText}>Login</Text>
                         </Pressable>
 
                         <Text style={styles.orText}>or</Text>
 
 
-
-                        <Pressable style={styles.guestButton} onPress={() => {navigation.navigate('BookingScreen')}}>
+                        <Pressable style={styles.guestButton} onPress={() => {
+                            navigation.navigate('BookingScreen')
+                        }}>
                             <Text style={styles.guestButtonText}
 
                             >Login as a guest</Text>
@@ -75,9 +124,10 @@ const AuthScreen: FC<ProfileScreenProps> = ({navigation}) => {
 
                         <View style={styles.footer}>
                             <Text style={styles.small}>Don't have an account?</Text>
-                            <Pressable onPress={() => {}}>
-                                <Text style={[styles.linkText, { marginLeft: 8 }]}
-                                onPress={()=> navigation.navigate('LoginScreen')}
+                            <Pressable onPress={() => {
+                            }}>
+                                <Text style={[styles.linkText, {marginLeft: 8}]}
+                                      onPress={() => navigation.navigate('LoginScreen')}
                                 >Register</Text>
                             </Pressable>
                         </View>
@@ -95,7 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFFFF",
     },
-    flex: { flex: 1 },
+    flex: {flex: 1},
     container: {
         padding: 24,
         justifyContent: "center",

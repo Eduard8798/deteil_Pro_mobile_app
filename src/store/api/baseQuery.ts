@@ -4,17 +4,20 @@ import {
     type FetchArgs,
     type FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
+import asyncStorage from "@react-native-async-storage/async-storage";
+import {apiURL} from "../../../apiURL";
 
 interface IRefreshResponse {
     access: string;
     refresh: string;
 }
 
-const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:8080",
+const baseQuery =   fetchBaseQuery({
+    baseUrl: process.env.EXPO_PUBLIC_API_URL || apiURL,
 
-    prepareHeaders: (headers) => {
-        const token = localStorage.getItem("accessToken");
+    prepareHeaders: async (headers)  => {
+
+        const token = await  asyncStorage.getItem("accessToken");
         console.log("HEADER TOKEN", token);
 
         if (token) {
@@ -32,7 +35,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
         let result = await baseQuery(args, api, extraOptions);
 
         if (result.error?.status === 401) {
-            const refreshToken = localStorage.getItem("refreshToken");
+            const refreshToken = await asyncStorage.getItem("refreshToken");
 
 
             if (refreshToken) {
@@ -49,20 +52,20 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
                 if (refreshResult.data) {
                     const data = refreshResult.data as IRefreshResponse
 
-                    localStorage.setItem("accessToken", data.access);
-                    localStorage.setItem("refreshToken", data.refresh);
+                   await asyncStorage.setItem("accessToken", data.access);
+                  await  asyncStorage.setItem("refreshToken", data.refresh);
 
                     console.log("NEW ACCESS", data.access);
-                    console.log("FROM STORAGE", localStorage.getItem("accessToken"));
+                    console.log("FROM STORAGE", await asyncStorage.getItem("accessToken"));
 
                     // повторяем исходный запрос
                     result = await baseQuery(args, api, extraOptions);
                     console.log("SECOND RESULT", result);
                 } else {
-                    localStorage.clear();
+                    asyncStorage.clear();
                 }
             } else {
-                localStorage.clear();
+                asyncStorage.clear();
             }
         }
 
