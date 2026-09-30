@@ -5,12 +5,13 @@ import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
 import {useGetOrderQuery} from "../../store/endpoints/orderApi";
 import {OrderList} from "../../store/type/type";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 
-type ListApplicationsScreenProps = BottomTabNavigationProp<RootStackParamList, 'ListApplicationsScreen'>;
+type ListApplicationsScreenNavigation = NativeStackNavigationProp<RootStackParamList, 'ListApplicationsScreen'>;
 
 interface IListApplicationsScreenProps {
-    navigation: ListApplicationsScreenProps;
+    navigation: ListApplicationsScreenNavigation;
 }
 
 const ListApplicationsScreen: FC<IListApplicationsScreenProps> = ({navigation}) => {
@@ -18,7 +19,9 @@ const ListApplicationsScreen: FC<IListApplicationsScreenProps> = ({navigation}) 
 
     const [listOrders,setListOrders] = useState<OrderList[]>( data ?? []);
    if (isLoading){
-       return <View>isLoading</View>
+       return <View>
+           <Text>isLoading</Text>
+       </View>
    }
    if (isError){
        return <View>Error</View>

@@ -127,7 +127,7 @@ const AuthScreen: FC<IProfileScreenProps> = ({navigation}) => {
                             <Pressable onPress={() => {
                             }}>
                                 <Text style={[styles.linkText, {marginLeft: 8}]}
-                                      onPress={() => navigation.navigate('LoginScreen')}
+                                      onPress={() => navigation.navigate('RegistrationScreen')}
                                 >Register</Text>
                             </Pressable>
                         </View>

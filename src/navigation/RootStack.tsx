@@ -9,10 +9,13 @@ import TonerScreen from "../screens/descriptionScreen/TonerScreen";
 import CeramicScreen from "../screens/descriptionScreen/CeramicScreen";
 import DryCleaningScreen from "../screens/descriptionScreen/DryCleaningScreen";
 import PolishingScreen from "../screens/descriptionScreen/PolishingScreen";
-import LoginScreen from "../screens/Profile/LoginScreen";
+import LoginScreen from "../screens/Auth/LoginScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import BookingScreen from "../screens/Profile/BookingScreen";
-import ListApplicationsScreen from "../screens/Profile/ListApplicationsScreen";
+import ListApplicationsScreen from "../screens/Profile/ListApplicationsScreenNavigation";
+import RegistrationScreen from "../screens/Auth/RegistrationScreen";
+import CreateOrderScreen from "../screens/Orders/CreateOrderScreen";
+import OrdersScreen from "../screens/Orders/OrdersScreen";
 
 export type RootStackParamList = {
     Tabs: undefined;
@@ -27,6 +30,9 @@ export type RootStackParamList = {
     ProfileScreen: undefined;
     BookingScreen:undefined;
     ListApplicationsScreen:undefined;
+    RegistrationScreen:undefined;
+    CreateOrderScreen:undefined;
+    OrdersScreen:undefined;
 
 };
 
@@ -47,6 +53,9 @@ const RootStack = () => {
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="BookingScreen" component={BookingScreen} />
             <Stack.Screen name="ListApplicationsScreen" component={ListApplicationsScreen} />
+            <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
+            <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
+            <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
         </Stack.Navigator>
     );
 };

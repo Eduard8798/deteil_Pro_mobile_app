@@ -7,6 +7,7 @@ import ProfileScreen from "../screens/Profile/ProfileScreen";
 import {Ionicons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
 import {StyleSheet} from 'react-native';
+import RegistrationScreen from "../screens/Auth/RegistrationScreen";
 
 export type RootTabParamList = {
     Home: undefined;
@@ -15,6 +16,7 @@ export type RootTabParamList = {
     Profile: undefined;
     MapScreen: undefined;
     BookingScreen:undefined;
+    RegistrationScreen:undefined;
 
 };
 
