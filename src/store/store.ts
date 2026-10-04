@@ -1,12 +1,14 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {authApi} from "./endpoints/authApi";
 import {orderApi} from "./endpoints/orderApi";
+import authSlice from "./slices/authSlice";
 
 
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
-        [orderApi.reducerPath]: orderApi.reducer
+        [orderApi.reducerPath]: orderApi.reducer,
+        auth: authSlice
     },
     middleware:(getDefaultMiddleware)=>
         getDefaultMiddleware()

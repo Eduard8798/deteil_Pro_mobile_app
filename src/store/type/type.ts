@@ -3,10 +3,15 @@ export type LoginRequest = {
     password: string;
 }
 
-export type LoginResponse = {
+export type TokenResponse = {
     accessToken: string;
     refreshToken: string;
 };
+export type Registration = {
+    "name": string;
+    "phone": string;
+    "password": string;
+}
 
 export type OrderList = {
     id: number;

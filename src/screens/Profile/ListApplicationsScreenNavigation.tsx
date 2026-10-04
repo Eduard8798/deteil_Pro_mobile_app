@@ -1,7 +1,5 @@
 import React, {FC, useState} from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Booking} from "./BookingScreen";
-import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
 import {useGetOrderQuery} from "../../store/endpoints/orderApi";
 import {OrderList} from "../../store/type/type";

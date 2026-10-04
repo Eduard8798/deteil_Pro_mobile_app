@@ -17,6 +17,7 @@ import RegistrationScreen from "../screens/Auth/RegistrationScreen";
 import CreateOrderScreen from "../screens/Orders/CreateOrderScreen";
 import OrdersScreen from "../screens/Orders/OrdersScreen";
 
+
 export type RootStackParamList = {
     Tabs: undefined;
     MapScreen: undefined;
@@ -33,6 +34,7 @@ export type RootStackParamList = {
     RegistrationScreen:undefined;
     CreateOrderScreen:undefined;
     OrdersScreen:undefined;
+
 
 };
 
@@ -56,6 +58,7 @@ const RootStack = () => {
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
             <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
             <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
+
         </Stack.Navigator>
     );
 };

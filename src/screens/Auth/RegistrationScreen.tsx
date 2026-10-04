@@ -3,6 +3,9 @@ import {View, Pressable, StyleSheet, Text, TextInput} from 'react-native';
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
 import {Alert} from "react-native";
+import {useRegistrationMutation} from "../../store/endpoints/authApi";
+import {LoginRequest, Registration} from "../../store/type/type";
+import asyncStorage from "@react-native-async-storage/async-storage";
 
 
 type RegistrationScreen = BottomTabNavigationProp<RootStackParamList, 'RegistrationScreen'>;
@@ -13,17 +16,50 @@ interface RegistrationScreenProps {
 
 const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
 
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        if (!phone || !password) {
-            Alert.alert('Error, please fill in all fields');
-            // return;
+    const [dataForm, setDataForm] = useState<Registration>({
+        name:'',
+        phone:'',
+        password:''
+    });
+    const [registration] = useRegistrationMutation();
+
+    const handleLogin = async () => {
+        try {
+            if (!dataForm.phone || !dataForm.password || !dataForm.name) {
+                Alert.alert('Error, please fill in all fields');
+                // return;
+            }
+            const result = await registration(
+                dataForm
+            ).unwrap()
+
+            if (result.accessToken) {
+                asyncStorage.setItem('accessToken', result.accessToken)
+            }
+            if (result.refreshToken) {
+
+                asyncStorage.setItem('refreshToken', result.refreshToken)
+            }
+            if (result.refreshToken && result.accessToken) {
+                navigation.navigate('ListApplicationsScreen')
+            }
+        }
+        catch (e){
+            console.log('Error', e)
         }
 
     };
+
+    const changeValueDataLogin = (field: keyof Registration,
+                                  value: string) => {
+        setDataForm((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
+    };
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Create account</Text>
@@ -32,8 +68,8 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
                 style={styles.input}
                 placeholder="Name"
                 placeholderTextColor="Artur"
-                value={name}
-                onChangeText={setName}
+                value={dataForm.name}
+                onChangeText={(text)=> {changeValueDataLogin('name',text)}}
             />
 
             <TextInput
@@ -42,8 +78,8 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
                 placeholderTextColor="#999"
                 keyboardType="number-pad"
                 autoCapitalize="none"
-                value={phone}
-                onChangeText={setPhone}
+                value={dataForm.phone}
+                onChangeText={(text)=> {changeValueDataLogin('phone',text)}}
             />
 
             <TextInput
@@ -51,8 +87,8 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
                 placeholder="Password"
                 placeholderTextColor="#999"
                 secureTextEntry
-                value={password}
-                onChangeText={setPassword}
+                value={dataForm.password}
+                onChangeText={(text)=> {changeValueDataLogin('password',text)}}
             />
 
             <Pressable style={styles.button} onPress={handleLogin}>
