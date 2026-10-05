@@ -1,7 +1,8 @@
 import LoginScreen from "../Auth/LoginScreen";
 import {AppNavigationProp} from "../../navigation/types/types";
 import OrdersScreen from "../Orders/OrdersScreen";
-import {useAppSelector} from "../../store/hooks/storeHook";
+import {useAppSelector} from "../../store/storeHooks";
+import Loading from "../page/Loading";
 
 
 interface IProfileScreenProps {
@@ -10,12 +11,19 @@ interface IProfileScreenProps {
 
 const ProfileScreen = ({navigation}: IProfileScreenProps) => {
 
-    const isAuthenticated = useAppSelector(
-        state => state.auth.isAuthenticated
+    const status = useAppSelector(
+        state => state.auth.status
     );
 
+    if (status === 'loading') {
+        return (
+            <Loading/>
 
-    if (!isAuthenticated) {
+        )
+
+    }
+
+    if (status === 'unauthenticated') {
         return (
             <LoginScreen
                 navigation={navigation}
@@ -24,10 +32,10 @@ const ProfileScreen = ({navigation}: IProfileScreenProps) => {
     }
 
     return (
+
         <OrdersScreen navigation={navigation}/>
+
     );
-
-
 };
 
 export default ProfileScreen;

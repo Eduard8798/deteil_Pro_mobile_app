@@ -1,6 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {baseQueryWithReauth} from "../api/baseQuery";
-import {OrderList} from "../type/type";
+import {OrderBody, OrderList} from "../type/type";
 
 export const orderApi = createApi({
     reducerPath: 'orderApi',
@@ -21,10 +21,17 @@ export const orderApi = createApi({
                 method: 'GET',
             }),
         }),
+        createOrder: build.mutation<OrderList,OrderBody>  ({
+            query: (body) => ({
+                url:`/order/create-order`,
+                method: 'POST',
+            }),
+        }),
     })
 })
 
 export const {
     useGetOrderQuery,
-    useGetOrderByIdQuery
+    useGetOrderByIdQuery,
+    useCreateOrderMutation
 }= orderApi;

@@ -14,8 +14,8 @@ import {LoginRequest} from "../../store/type/type";
 import {useLoginMutation} from "../../store/endpoints/authApi";
 import asyncStorage from "@react-native-async-storage/async-storage";
 import {AppNavigationProp} from "../../navigation/types/types";
-import {useAppDispatch} from "../../store/hooks/storeHook";
-import {setAuthenticated} from "../../store/slices/authSlice";
+import {useAppDispatch} from "../../store/storeHooks";
+import {setAuthenticated, setUnauthenticated} from "../../store/slices/authSlice";
 
 
 interface LoginScreenProps {
@@ -45,8 +45,11 @@ const LoginScreen = ({navigation}:LoginScreenProps) => {
         asyncStorage.setItem('refreshToken', result.refreshToken)
       }
       if (result.refreshToken && result.accessToken) {
-        dispatch(setAuthenticated(true));
+        dispatch(setAuthenticated());
         navigation.navigate('ProfileScreen');
+      }
+      if (!result.refreshToken && !result.accessToken){
+        dispatch(setUnauthenticated());
       }
     } catch (e) {
       console.log('Error', e)

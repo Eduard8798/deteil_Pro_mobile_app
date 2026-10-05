@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import WashScreen from '../screens/WashScreen';
@@ -7,11 +7,13 @@ import ProfileScreen from "../screens/Profile/ProfileScreen";
 import {Ionicons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
 import {StyleSheet} from 'react-native';
-import RegistrationScreen from "../screens/Auth/RegistrationScreen";
+import {setAuthenticated, setUnauthenticated} from "../store/slices/authSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useAppDispatch} from "../store/storeHooks";
 
 export type RootTabParamList = {
     Home: undefined;
-    Wash: { userId: number };
+    Wash: undefined;
     News: { name: "John" };
     Profile: undefined;
     MapScreen: undefined;
@@ -23,6 +25,28 @@ export type RootTabParamList = {
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const MyTabs = () => {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+
+        const checkAuth = async () => {
+
+            const accessToken =
+                await AsyncStorage.getItem('accessToken');
+
+            const refreshToken =
+                await AsyncStorage.getItem('refreshToken');
+
+            if (accessToken && refreshToken) {
+                dispatch(setAuthenticated());
+            } else {
+                dispatch(setUnauthenticated());
+            }
+        };
+
+        checkAuth();
+
+    }, [dispatch]);
     return (
         <Tab.Navigator
             screenOptions={({route}) => ({
