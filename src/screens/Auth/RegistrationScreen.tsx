@@ -1,10 +1,9 @@
 import React, {FC, useState} from 'react';
-import {View, Pressable, StyleSheet, Text, TextInput} from 'react-native';
+import {Alert, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../navigation/RootStack";
-import {Alert} from "react-native";
 import {useRegistrationMutation} from "../../store/endpoints/authApi";
-import {LoginRequest, Registration} from "../../store/type/type";
+import {Registration} from "../../store/type/type";
 import asyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -28,7 +27,7 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
         try {
             if (!dataForm.phone || !dataForm.password || !dataForm.name) {
                 Alert.alert('Error, please fill in all fields');
-                // return;
+                return;
             }
             const result = await registration(
                 dataForm

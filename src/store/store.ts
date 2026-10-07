@@ -8,12 +8,14 @@ export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
         [orderApi.reducerPath]: orderApi.reducer,
+
         auth: authSlice
     },
     middleware:(getDefaultMiddleware)=>
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(orderApi.middleware)
+
 })
 
 export type RootState = ReturnType<typeof store.getState>

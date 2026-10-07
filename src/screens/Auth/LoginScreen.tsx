@@ -110,7 +110,7 @@ const LoginScreen = ({navigation}:LoginScreenProps) => {
               </Pressable>
 
               <Pressable style={styles.primaryButton} onPress={()=> {
-                console.log('work'), handleSubmit()
+                 handleSubmit()
               }}>
                 <Text style={styles.primaryButtonText}>Login</Text>
               </Pressable>

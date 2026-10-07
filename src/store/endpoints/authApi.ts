@@ -2,6 +2,11 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {LoginRequest, Registration, TokenResponse,} from "../type/type";
 import {apiURL} from "../../../apiURL";
 
+const BASE_URL =
+    process.env.EXPO_PUBLIC_API_URL || apiURL;
+
+
+
 
 export const authApi = createApi({
     reducerPath: 'authApi',

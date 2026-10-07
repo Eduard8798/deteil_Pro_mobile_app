@@ -1,7 +1,9 @@
 import React, {FC} from 'react';
-import {ScrollView, Text, View} from "react-native";
+import {Button, ScrollView, Text, View} from "react-native";
 import {RouteProp} from "@react-navigation/native";
 import {RootTabParamList} from "../navigation/MyTabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import asyncStorage from "@react-native-async-storage/async-storage";
 
 type ProfileScreenRouteProp = RouteProp<RootTabParamList, 'News'>;
 
@@ -11,10 +13,15 @@ interface AboutScreenProps{
 
 const NewsScreen : FC<AboutScreenProps> = ({route}) => {
 
+    const deleteRef = async ()=>{
+        await AsyncStorage.clear()
+
+
+    }
     return (
 <ScrollView>
     <View>
-
+<Button title={'del ref'} onPress={deleteRef}/>
     </View>
 </ScrollView>
     );
