@@ -1,133 +1,321 @@
-import {Button, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {
+    Alert, Button, KeyboardAvoidingView,
+    Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View
+} from "react-native";
 import {AppNavigationProp} from "../../navigation/types/types";
 import {useCreateOrderMutation} from "../../store/endpoints/orderApi";
-import {useState} from "react";
-import {CameraType, CameraView, useCameraPermissions} from 'expo-camera';
-import * as ImagePicker from 'expo-image-picker';
+import {useEffect, useState} from "react";
 import {uploadImageToCloudinary} from "../../services/cloudinary";
+import {takePhoto} from "../../utils/takePhoto";
+import {Dropdown} from 'react-native-element-dropdown';
+
 
 interface ICreateOrderScreenProps {
     navigation: AppNavigationProp;
 }
 
 const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
-    const [createOrder, {isLoading}] = useCreateOrderMutation();
-
-
+    const [createOrder, {isLoading: isCreating}] = useCreateOrderMutation();
     const [photoUri, setPhotoUri] = useState<string | null>(null);
-    const [message, SetMessage] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
 
-    const takePhoto = async () => {
-        console.log('1. takePhoto START');
 
-        const permission =
-            await ImagePicker.requestCameraPermissionsAsync();
+    const handleTakePhoto = async () => {
+        try {
 
-        console.log('2. permission:', permission);
+            const uri = await takePhoto();
+            if (uri) {
+                setPhotoUri(uri);
+            }
 
-        if (!permission.granted) {
-            console.log('3. permission DENIED');
-            return;
+        } catch (error) {
+            console.error('Camera error:', error);
         }
-
-        console.log('4. permission GRANTED');
-
-        const result =
-            await ImagePicker.launchCameraAsync({
-                mediaTypes: ['images'],
-                quality: 0.8,
-            });
-
-        console.log('5. camera result:', result);
-
-        if (result.canceled) {
-            console.log('6. USER CANCELED');
-            return;
-        }
-
-        console.log('7. PHOTO:', result.assets[0]);
-
-        setPhotoUri(result.assets[0].uri);
-
-        console.log(
-            '8. PHOTO URI:',
-            result.assets[0].uri,
-        );
     };
 
     const handleCreateOrder = async () => {
+        const finalMessage = message.trim();
 
         if (!photoUri) {
+            Alert.alert('Ошибка', 'Сначала выбери фотографию');
             return;
         }
 
+        if (!finalMessage) {
+            Alert.alert('Ошибка', 'Выбери услугу или введи описание');
+            return;
+        }
         try {
-
-            // 1. Фото → Cloudinary
-            const photoUrl =
-                await uploadImageToCloudinary(photoUri);
-
-            console.log('Cloudinary URL:', photoUrl);
-
-            // 2. Cloudinary URL → NestJS
-            await createOrder({
-                message,
-                url_photo: photoUrl,
-            }).unwrap();
-
-            console.log('Order created');
-
+            const photoUrl = await uploadImageToCloudinary(photoUri);
+            const response = await createOrder({message: message.trim(), url_photo: photoUrl,}).unwrap();
+            navigation.goBack();
+            console.log('Order created successfully');
+            console.log('response', response);
         } catch (error) {
-
-            console.error(
-                'Create order error:',
-                error,
-            );
+            console.error('Create order error:', error);
         }
     };
+
+
+    const data = [
+        {label: 'Paint protection film application', value: 'ppf'},
+        {label: 'Vacuuming service', value: 'vacuuming'},
+        {label: 'Window tinting', value: 'window_tinting'},
+        {label: 'Ceramic coating', value: 'ceramic_coating'},
+        {label: 'Interior detailing', value: 'interior_detailing'},
+        {label: 'Polishing', value: 'polishing'},
+    ];
+
+    useEffect(() => {
+        console.log('message', message)
+        console.log('photoUri', photoUri)
+    }, [message, photoUri])
+
     return (
-        <View style={styles.container}>
-            <Button
-                title="Upload to Cloudinary"
-                onPress={handleCreateOrder}
-            />
-            <Button
-                title="Сделать фото"
-                onPress={takePhoto}
-            />
+        <SafeAreaView style={styles.safeArea}>
+            <KeyboardAvoidingView
+                style={styles.flex}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            >
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <Pressable
+                        style={styles.backButton}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Text style={styles.backButtonText}>‹ Back</Text>
+                    </Pressable>
+                    <View style={styles.header}>
+                        <Text style={styles.headerTitle}>Create Order</Text>
+                        <Text style={styles.subtitle}>
+                            Tell us what your car needs
+                        </Text>
+                    </View>
 
+                    <Pressable
+                        style={styles.photoCard}
+                        onPress={handleTakePhoto}
+                    >
+                        <Text style={styles.cameraIcon}>📷</Text>
+                        <Text style={styles.photoTitle}>
+                            Take a photo
+                        </Text>
+                        <Text style={styles.photoSubtitle}>
+                            Add a photo of your vehicle
+                        </Text>
+                    </Pressable>
 
-        </View>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>
+                            Service
+                        </Text>
+
+                        <View style={styles.dropdownContainer}>
+                            <Dropdown
+                                style={styles.dropdown}
+                                placeholder="Choose a service"
+                                data={data}
+                                labelField="label"
+                                valueField="value"
+                                value={message}
+                                onChange={item => setMessage(item.value)}
+                                placeholderStyle={styles.placeholder}
+                                selectedTextStyle={styles.selectedText}
+                                itemTextStyle={styles.itemText}
+                            />
+                        </View>
+
+                        <View style={styles.orContainer}>
+                            <View style={styles.separator} />
+                            <Text style={styles.orText}>OR</Text>
+                            <View style={styles.separator} />
+                        </View>
+
+                        <Text style={styles.sectionTitle}>
+                            Additional details
+                        </Text>
+
+                        <TextInput
+                            style={styles.descriptionInput}
+                            placeholder="Describe the service you need..."
+                            placeholderTextColor="#8E8E93"
+                            value={message}
+                            onChangeText={setMessage}
+                            multiline
+                            textAlignVertical="top"
+                        />
+                    </View>
+                </ScrollView>
+
+                <View style={styles.footer}>
+                    <Pressable
+                        style={({ pressed }) => [
+                            styles.createButton,
+                            pressed && styles.createButtonPressed,
+                            isCreating && styles.createButtonDisabled,
+                        ]}
+                        disabled={isCreating}
+                        onPress={handleCreateOrder}
+                    >
+                        <Text style={styles.createButtonText}>
+                            {isCreating ? 'Creating...' : 'Create Order'}
+                        </Text>
+                    </Pressable>
+                </View>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 export default CreateOrderScreen;
+
 const styles = StyleSheet.create({
-    container: {
+    safeArea: {
         flex: 1,
+        backgroundColor: '#F2F2F7',
+    },
+    flex: {
+        flex: 1,
+    },
+    scrollContent: {
+        paddingHorizontal: 20,
+        paddingTop: 24,
+        paddingBottom: 24,
+    },
+    header: {
+        marginBottom: 28,
+    },
+    backButton: {
+        alignSelf: 'flex-start',
+        paddingVertical: 8,
+        paddingRight: 16,
+        marginBottom: 16,
+    },
+
+    backButtonText: {
+        color: '#007AFF',
+        fontSize: 17,
+        fontWeight: '400',
+    },
+    headerTitle: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#1C1C1E',
+        letterSpacing: -0.5,
+    },
+    subtitle: {
+        marginTop: 6,
+        fontSize: 15,
+        color: '#8E8E93',
+    },
+    photoCard: {
+        minHeight: 190,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#E5E5EA',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24,
+        marginBottom: 30,
+    },
+    cameraIcon: {
+        fontSize: 38,
+        marginBottom: 12,
+    },
+    photoTitle: {
+        fontSize: 17,
+        fontWeight: '600',
+        color: '#007AFF',
+    },
+    photoSubtitle: {
+        marginTop: 6,
+        fontSize: 13,
+        color: '#8E8E93',
+    },
+    section: {
+        gap: 12,
+    },
+    sectionTitle: {
+        fontSize: 17,
+        fontWeight: '600',
+        color: '#1C1C1E',
+        marginBottom: 2,
+    },
+    dropdownContainer: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#D1D1D6',
+        paddingHorizontal: 14,
+    },
+    dropdown: {
+        height: 54,
+    },
+    placeholder: {
+        fontSize: 16,
+        color: '#8E8E93',
+    },
+    selectedText: {
+        fontSize: 16,
+        color: '#1C1C1E',
+    },
+    itemText: {
+        fontSize: 16,
+        color: '#1C1C1E',
+    },
+    orContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        marginVertical: 8,
+    },
+    separator: {
+        flex: 1,
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#D1D1D6',
+    },
+    orText: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#8E8E93',
+    },
+    descriptionInput: {
+        minHeight: 110,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#D1D1D6',
+        borderRadius: 12,
+        padding: 14,
+        fontSize: 16,
+        color: '#1C1C1E',
+    },
+    footer: {
+        paddingHorizontal: 20,
+        paddingTop: 12,
+        paddingBottom: 16,
+        backgroundColor: '#F2F2F7',
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: '#D1D1D6',
+    },
+    createButton: {
+        minHeight: 54,
+        borderRadius: 14,
+        backgroundColor: '#007AFF',
+        alignItems: 'center',
         justifyContent: 'center',
     },
-    message: {
-        textAlign: 'center',
-        paddingBottom: 10,
+    createButtonPressed: {
+        backgroundColor: '#0063D1',
+        opacity: 0.85,
     },
-    camera: {
-        flex: 1,
+    createButtonDisabled: {
+        opacity: 0.55,
     },
-    buttonContainer: {
-        position: 'absolute',
-        bottom: 64,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-        width: '100%',
-        paddingHorizontal: 64,
-    },
-    button: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
+    createButtonText: {
+        color: '#FFFFFF',
+        fontSize: 17,
+        fontWeight: '600',
     },
 });

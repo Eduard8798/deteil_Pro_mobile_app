@@ -1,8 +1,11 @@
-import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Image, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import React, { useState} from "react";
 import {AppNavigationProp} from "../../navigation/types/types";
 import {useGetOrderQuery} from "../../store/endpoints/orderApi";
 import {OrderList} from "../../store/type/type";
+import {useAppDispatch} from "../../store/storeHooks";
+import {logout} from "../../store/slices/authSlice";
+import asyncStorage from "@react-native-async-storage/async-storage";
 
 
 interface IOrdersScreenProps {
@@ -11,9 +14,14 @@ interface IOrdersScreenProps {
 
 
 const OrdersScreen = ({navigation}: IOrdersScreenProps) => {
-    const {data, isLoading, isError} = useGetOrderQuery();
+    const {
+        data: orders = [],
+        isLoading,
+        isFetching,
+        isError,
+    } = useGetOrderQuery();
+    const dispatch = useAppDispatch();
 
-    const [listOrders, setListOrders] = useState<OrderList[]>(data ?? []);
     if (isLoading) {
         return <View>
             <Text>isLoading</Text>
@@ -22,23 +30,31 @@ const OrdersScreen = ({navigation}: IOrdersScreenProps) => {
     if (isError) {
         return <View>Error</View>
     }
-    console.log('listOrders', data)
+    const logoutProfile = () =>{
+        dispatch(logout());
+        asyncStorage.removeItem('accessToken')
+        asyncStorage.removeItem('refreshToken')
+    }
     return (
         <View style={styles.container}>
+
             <View style={styles.containerViewButton}>
 
                 <Text style={styles.textButtonExit} onPress={() =>
                     navigation.navigate("Wash")
                 }>⬅️ Back</Text>
 
-                <Text style={styles.textButtonExit} onPress={() =>
-                    navigation.navigate('Profile')
+                <Text style={styles.textButtonExit} onPress={() => {
+                    navigation.navigate('Profile'),
+                        logoutProfile()
+                }
                 }>Exit 🚪</Text>
             </View>
             <ScrollView style={styles.containerCardTop}>
+                {isFetching && <Text>loading orders...</Text>}
 
-                {data?.map((item, index) => (
-                    <View key={index} style={styles.card}>
+                {orders?.map((item, index) => (
+                    <Pressable key={index} style={styles.card} onPress={() => navigation.navigate('OrderDetailsId',{id:item.id})}>
                         <Text style={styles.title}>{item.message}</Text>
 
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -51,7 +67,7 @@ const OrdersScreen = ({navigation}: IOrdersScreenProps) => {
                             </View>
                         </View>
 
-                    </View>
+                    </Pressable>
                 ))}
 
             </ScrollView>

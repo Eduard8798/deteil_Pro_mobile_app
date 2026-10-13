@@ -16,6 +16,7 @@ import ListApplicationsScreen from "../screens/Profile/ListApplicationsScreenNav
 import RegistrationScreen from "../screens/Auth/RegistrationScreen";
 import CreateOrderScreen from "../screens/Orders/CreateOrderScreen";
 import OrdersScreen from "../screens/Orders/OrdersScreen";
+import OrderDetailsId from "../screens/Orders/OrderDetailsId";
 
 
 export type RootStackParamList = {
@@ -34,6 +35,7 @@ export type RootStackParamList = {
     RegistrationScreen:undefined;
     CreateOrderScreen:undefined;
     OrdersScreen:undefined;
+    OrderDetailsId:{id:number};
 
 
 };
@@ -58,6 +60,7 @@ const RootStack = () => {
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
             <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
             <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
+            <Stack.Screen name="OrderDetailsId" component={OrderDetailsId} />
 
         </Stack.Navigator>
     );

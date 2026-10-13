@@ -6,6 +6,7 @@ export const orderApi = createApi({
     reducerPath: 'orderApi',
 
     baseQuery:baseQueryWithReauth,
+    tagTypes: ['Orders'],
 
     endpoints: build => ({
         getOrder: build.query<OrderList[],void>({
@@ -13,19 +14,24 @@ export const orderApi = createApi({
                 url: '/order',
                 method: 'GET',
             }),
+            providesTags: ['Orders']
         }),
 
-        getOrderById: build.query<OrderList,void>  ({
+        getOrderById: build.query<OrderList,number>  ({
             query: (id) => ({
                 url:`/order/${id}`,
                 method: 'GET',
             }),
+
+
         }),
         createOrder: build.mutation<OrderList,OrderBody>  ({
             query: (body) => ({
                 url:`/order/create-order`,
                 method: 'POST',
+                body
             }),
+            invalidatesTags: ['Orders']
         }),
     })
 })
