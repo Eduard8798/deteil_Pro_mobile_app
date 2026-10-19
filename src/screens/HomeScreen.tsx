@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootTabParamList} from "../navigation/MyTabs";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import MapScreenNavigation from "../page/MapScreenNavigation";
+import {useAppSelector} from "../store/storeHooks";
 
 
 type HomeScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Home'>;
@@ -11,21 +12,23 @@ interface HomeScreenProps {
     navigation: HomeScreenNavigationProp;
 }
 
-const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}> Бонуси </Text>
-            <Text style={styles.text}> Рахунок: ГРН</Text>
+const HomeScreen = ({navigation}:HomeScreenProps) => {
 
+
+    const mode = useAppSelector(
+        state => state.theme.mode
+    );
+
+    return (
+        <View style={mode ? styles.container : styles.containerDark}>
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
                     <MapScreenNavigation />
                 </TouchableOpacity>
-
-
             </View>
         </View>
     );
+
 };
 
 export default HomeScreen;
@@ -36,17 +39,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-
     },
-    text: {
-        margin: 15,
-        borderRadius: 35,
-        padding: 5,
-        borderWidth: 1,
-        borderColor: 'gray',
-        color: '#373636',
-        backgroundColor: '#f4f3f3',
-
+    containerDark: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#030304'
     },
     mapStyles:{
         borderRadius:35,

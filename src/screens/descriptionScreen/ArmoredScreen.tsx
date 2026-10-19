@@ -1,56 +1,104 @@
 import React, { FC } from 'react';
-import { Image, Pressable, ScrollView, StyleSheet, Text } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/RootStack";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/RootStack';
+import { Ionicons } from '@expo/vector-icons';
+import { useAppSelector } from '../../store/storeHooks';
 
 interface ArmoredScreenProps {}
 
-type ArmoredFilmRouteProp = RouteProp<RootStackParamList, 'ArmoredFilmScreen'>;
+type ArmoredFilmRouteProp = RouteProp<
+    RootStackParamList,
+    'ArmoredFilmScreen'
+>;
 
 const ArmoredScreen: FC<ArmoredScreenProps> = () => {
   const navigation = useNavigation();
   const route = useRoute<ArmoredFilmRouteProp>();
   const { image } = route.params;
+  const mode = useAppSelector(state => state.theme.mode);
 
   return (
       <ScrollView
-          style={styles.container}
+          style={mode ? styles.safeArea : styles.safeAreaBlack}
           contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
       >
-        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={28} color="black" />
+        <Pressable
+            style={mode ? styles.backButton : styles.backButtonBlack}
+            onPress={() => navigation.goBack()}
+        >
+          <Ionicons
+              name="chevron-back"
+              size={24}
+              color={mode ? '#1D1D1F' : '#F5F5F7'}
+          />
         </Pressable>
 
-        <Text
-            style={{
-              fontSize: 18,
-              color: '#949497',
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: '#222',
-              padding: 12,
-            }}
-        >
-          Paint Protection Film (PPF) Application
+        <Text style={mode ? styles.eyebrow : styles.eyebrowBlack}>
+          CAR CARE
         </Text>
 
-        <Image style={styles.image} source={{ uri: image }} />
+        <Text style={mode ? styles.title : styles.titleBlack}>
+          Paint Protection Film
+        </Text>
 
-        <Text style={styles.textDescription}>
-          {"\t"}Applying a protective paint protection film (PPF) is a modern way
-          to keep your car looking flawless. A transparent polyurethane or vinyl
-          film is applied to the vehicle’s body panels, forming a durable
-          protective layer that shields the paint from scratches, rock chips,
-          chemical contaminants, and UV rays.{"\n\n"}
-          The coating is nearly invisible — it doesn’t alter the car’s color and
-          preserves the deep shine of the paint. The film has
-          self-healing properties, meaning minor scratches disappear with heat or
-          sunlight.{"\n\n"}
-          You can protect individual parts — such as the hood, fenders, bumpers,
-          side mirrors, and door sills — or cover the entire vehicle.{"\n"}It’s a
-          reliable way to maintain your car’s original appearance and reduce
-          future costs on polishing or repainting.
+        <Text style={mode ? styles.subtitle : styles.subtitleBlack}>
+          Invisible protection. Lasting perfection.
+        </Text>
+
+        <Image
+            style={styles.image}
+            source={{ uri: image }}
+            resizeMode="cover"
+        />
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Protection that speaks for itself.
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          Paint Protection Film (PPF) is a transparent polyurethane film that
+          protects your vehicle’s paintwork while preserving its original
+          appearance.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Engineered to protect
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          The durable protective layer helps defend against scratches, stone
+          chips, road debris, chemical contaminants and UV exposure.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Beauty that lasts
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          High-quality films are designed to remain nearly invisible. Selected
+          films also feature self-healing properties that help minor surface
+          scratches disappear with heat.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Made for your vehicle
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          Protect specific areas such as the hood, bumpers, fenders, mirrors and
+          door sills — or choose full-body coverage for comprehensive protection.
+        </Text>
+
+        <Text style={mode ? styles.footer : styles.footerBlack}>
+          Preserve the finish. Protect the investment.
         </Text>
       </ScrollView>
   );
@@ -59,36 +107,152 @@ const ArmoredScreen: FC<ArmoredScreenProps> = () => {
 export default ArmoredScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#030303',
+    backgroundColor: '#F5F5F7',
   },
-  image: {
-    width: 350,
-    height: 250,
-    margin: 50,
-    borderRadius: 16,
-  },
-  textDescription: {
-    color: '#ffffff',
-    alignItems: 'center',
-    maxWidth: 300,
+  safeAreaBlack: {
+    flex: 1,
+    backgroundColor: '#000000',
   },
   contentContainer: {
     alignItems: 'center',
-    padding: 100,
+    paddingTop: '20%',
+    paddingBottom: '12%',
+    paddingHorizontal: '6%',
   },
   backButton: {
     position: 'absolute',
-    top: 50,
-    left: 20,
+    top: '5%',
+    left: '5%',
     zIndex: 10,
-    backgroundColor: 'white',
-    borderRadius: 30,
-    padding: 6,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
+    width: '12%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E8E8ED',
+    borderRadius: 100,
+  },
+  backButtonBlack: {
+    position: 'absolute',
+    top: '5%',
+    left: '5%',
+    zIndex: 10,
+    width: '12%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1C1C1E',
+    borderRadius: 100,
+  },
+  eyebrow: {
+    color: '#86868B',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: '3%',
+  },
+  eyebrowBlack: {
+    color: '#98989D',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: '3%',
+  },
+  title: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: -1,
+    textAlign: 'center',
+    lineHeight: 38,
+  },
+  titleBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: -1,
+    textAlign: 'center',
+    lineHeight: 38,
+  },
+  subtitle: {
+    width: '90%',
+    color: '#6E6E73',
+    fontSize: 16,
+    lineHeight: 23,
+    textAlign: 'center',
+    marginTop: '3%',
+    marginBottom: '8%',
+  },
+  subtitleBlack: {
+    width: '90%',
+    color: '#A1A1A6',
+    fontSize: 16,
+    lineHeight: 23,
+    textAlign: 'center',
+    marginTop: '3%',
+    marginBottom: '8%',
+  },
+  image: {
+    width: '100%',
+    aspectRatio: 1.2,
+    borderRadius: 24,
+    marginBottom: '10%',
+  },
+  sectionTitle: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: -0.4,
+    textAlign: 'left',
+    marginBottom: '3%',
+    marginTop: '3%',
+  },
+  sectionTitleBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: -0.4,
+    textAlign: 'left',
+    marginBottom: '3%',
+    marginTop: '3%',
+  },
+  textDescription: {
+    width: '100%',
+    color: '#6E6E73',
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left',
+    marginBottom: '5%',
+  },
+  textDescriptionBlack: {
+    width: '100%',
+    color: '#A1A1A6',
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left',
+    marginBottom: '5%',
+  },
+  footer: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: '8%',
+  },
+  footerBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: '8%',
   },
 });

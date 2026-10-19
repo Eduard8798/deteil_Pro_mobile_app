@@ -1,8 +1,7 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RootStackParamList} from "../../navigation/RootStack";
 import {useGetOrderQuery} from "../../store/endpoints/orderApi";
-import {OrderList} from "../../store/type/type";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 
@@ -15,7 +14,7 @@ interface IListApplicationsScreenProps {
 const ListApplicationsScreen: FC<IListApplicationsScreenProps> = ({navigation}) => {
     const {data,isLoading,isError} = useGetOrderQuery();
 
-    const [listOrders,setListOrders] = useState<OrderList[]>( data ?? []);
+
    if (isLoading){
        return <View>
            <Text>isLoading</Text>
@@ -24,7 +23,7 @@ const ListApplicationsScreen: FC<IListApplicationsScreenProps> = ({navigation}) 
    if (isError){
        return <View>Error</View>
    }
-   console.log('listOrders',data)
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.containerCardTop}>

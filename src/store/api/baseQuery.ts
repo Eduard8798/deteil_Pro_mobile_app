@@ -12,13 +12,13 @@ interface IRefreshResponse {
     refresh: string;
 }
 
-const baseQuery =   fetchBaseQuery({
+const baseQuery = fetchBaseQuery({
     baseUrl: process.env.EXPO_PUBLIC_API_URL || apiURL,
 
-    prepareHeaders: async (headers)  => {
+    prepareHeaders: async (headers) => {
 
-        const token = await  asyncStorage.getItem("accessToken");
-        console.log("HEADER TOKEN", token);
+        const token = await asyncStorage.getItem("accessToken");
+
 
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
@@ -43,7 +43,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
                     {
                         url: "/api/token/refresh/",
                         method: "POST",
-                        body: { refresh: refreshToken },
+                        body: {refresh: refreshToken},
                     },
                     api,
                     extraOptions
@@ -52,13 +52,10 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
                 if (refreshResult.data) {
                     const data = refreshResult.data as IRefreshResponse
 
-                   await asyncStorage.setItem("accessToken", data.access);
-                  await  asyncStorage.setItem("refreshToken", data.refresh);
+                    await asyncStorage.setItem("accessToken", data.access);
+                    await asyncStorage.setItem("refreshToken", data.refresh);
 
-                    console.log("NEW ACCESS", data.access);
-                    console.log("FROM STORAGE", await asyncStorage.getItem("accessToken"));
 
-                    // повторяем исходный запрос
                     result = await baseQuery(args, api, extraOptions);
                     console.log("SECOND RESULT", result);
                 } else {

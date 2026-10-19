@@ -3,6 +3,7 @@ import {Animated, ImageBackground, Pressable, StyleSheet, Text, View} from "reac
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../navigation/RootStack";
 import ScrollView = Animated.ScrollView;
+import {useAppSelector} from "../store/storeHooks";
 
 
 type WashScreenNavigationProp = BottomTabNavigationProp<RootStackParamList, 'ArmoredFilmScreen'>;
@@ -13,10 +14,13 @@ interface WashScreenProps {
 
 const WashScreen: FC<WashScreenProps> = ({navigation}) => {
 
+    const mode = useAppSelector(
+        state => state.theme.mode
+    );
 
     return (
-        <ScrollView style={styles.container}
-                    contentContainerStyle={styles.contentContainer}
+        <ScrollView style={ styles.container }
+                    contentContainerStyle={mode ? styles.contentContainer : styles.contentContainerBlack}
         >
             <Pressable style={styles.image} onPress={() => navigation.navigate('ArmoredFilmScreen',
                 {
@@ -31,7 +35,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                     imageStyle={styles.imageInner}
                 >
                     <View style={styles.overlay}>
-                        <Text style={styles.text}>Поклейка бронеплёнки</Text>
+                        <Text style={styles.text}>Gluing armored film service</Text>
                     </View>
                 </ImageBackground>
             </Pressable>
@@ -50,7 +54,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                     imageStyle={styles.imageInner}
                 >
                     <View style={styles.overlay}>
-                        <Text style={styles.text}>Послуга пилососа</Text>
+                        <Text style={styles.text}>Vacuuming service</Text>
                     </View>
                 </ImageBackground>
             </Pressable>
@@ -69,7 +73,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                 imageStyle={styles.imageInner}
             >
                 <View style={styles.overlay}>
-                    <Text style={styles.text}>Тонування</Text>
+                    <Text style={styles.text}>Window tinting service</Text>
                 </View>
             </ImageBackground>
             </Pressable>
@@ -88,7 +92,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                 imageStyle={styles.imageInner}
             >
                 <View style={styles.overlay}>
-                    <Text style={styles.text}>Кераміка</Text>
+                    <Text style={styles.text}>Ceramic coating service</Text>
                 </View>
             </ImageBackground>
             </Pressable>
@@ -106,7 +110,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                 imageStyle={styles.imageInner}
             >
                 <View style={styles.overlay}>
-                    <Text style={styles.text}>Хімчистка</Text>
+                    <Text style={styles.text}>Dry cleaning service</Text>
                 </View>
             </ImageBackground>
             </Pressable>
@@ -125,7 +129,7 @@ const WashScreen: FC<WashScreenProps> = ({navigation}) => {
                 imageStyle={styles.imageInner}
             >
                 <View style={styles.overlay}>
-                    <Text style={styles.text}>Полірування</Text>
+                    <Text style={styles.text}>Polishing service</Text>
                 </View>
             </ImageBackground>
             </Pressable>
@@ -142,9 +146,16 @@ const styles = StyleSheet.create({
         flex: 1,
 
     },
+
     contentContainer: {
         alignItems: 'center',
-        paddingVertical: 15,
+        paddingVertical: '1%',
+        paddingBottom: '30%',
+
+
+    },
+    contentContainerBlack:{
+        alignItems: 'center',
         paddingBottom: 100,
         backgroundColor:"#030303"
     },
@@ -152,15 +163,15 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
         justifyContent: 'flex-end',
-        margin: 2,
-
+        margin: '1%',
     },
     imageInner: {
         borderRadius: 12,
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        padding: 8,
+        padding: '3%',
+        borderRadius: 12,
     },
     text: {
         color: '#fff',

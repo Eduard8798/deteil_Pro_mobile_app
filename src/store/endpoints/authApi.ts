@@ -12,7 +12,7 @@ export const authApi = createApi({
     reducerPath: 'authApi',
 
     baseQuery:fetchBaseQuery({
-        baseUrl: process.env.EXPO_PUBLIC_API_URL || apiURL,
+        baseUrl: BASE_URL,
     }),
 
     endpoints: build => ({

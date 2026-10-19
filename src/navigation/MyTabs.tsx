@@ -9,7 +9,7 @@ import {BlurView} from 'expo-blur';
 import {StyleSheet} from 'react-native';
 import {setAuthenticated, setUnauthenticated} from "../store/slices/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useAppDispatch} from "../store/storeHooks";
+import {useAppDispatch, useAppSelector} from "../store/storeHooks";
 
 export type RootTabParamList = {
     Home: undefined;
@@ -26,6 +26,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const MyTabs = () => {
     const dispatch = useAppDispatch();
+    const mode = useAppSelector(state => state.theme.mode);
 
     useEffect(() => {
 
@@ -50,10 +51,21 @@ const MyTabs = () => {
     return (
         <Tab.Navigator
             screenOptions={({route}) => ({
+                headerStyle: {
+                    backgroundColor: mode ? '#FFFFFF' : '#030304',
+                },
+                headerTintColor: mode ? '#000000' : '#FFFFFF',
+                headerTitleStyle: {
+                    color: mode ? '#000000' : '#FFFFFF',
+                },
+                headerShown: false,
+                headerShadowVisible: false,
                 tabBarStyle: {
                     position: 'absolute',
                     height: 100,
                     elevation: 5, // Android
+                    // backgroundColor: mode ? '#FFFFFF' : '#030304',
+                    // borderTopColor: mode ? '#E5E5E5' : '#030304',
                 },
                 tabBarBackground: () => (
                     <BlurView tint="light" intensity={100} style={StyleSheet.absoluteFill}/>
@@ -76,7 +88,7 @@ const MyTabs = () => {
                 }
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
+            <Tab.Screen  name="Home" component={HomeScreen} options={{title: 'Home'}}/>
             <Tab.Screen name="Wash" component={WashScreen} options={{title: 'Wash'}}/>
             <Tab.Screen name="News" component={NewsScreen} options={{title: 'News'}}/>
             <Tab.Screen name="Profile" component={ProfileScreen} options={{title: 'Profile'}}/>

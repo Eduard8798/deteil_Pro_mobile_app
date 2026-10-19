@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {uploadImageToCloudinary} from "../../services/cloudinary";
 import {takePhoto} from "../../utils/takePhoto";
 import {Dropdown} from 'react-native-element-dropdown';
+import {useAppSelector} from "../../store/storeHooks";
 
 
 interface ICreateOrderScreenProps {
@@ -19,6 +20,9 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
     const [photoUri, setPhotoUri] = useState<string | null>(null);
     const [message, setMessage] = useState<string>('');
 
+    const mode = useAppSelector(
+        state => state.theme.mode
+    );
 
     const handleTakePhoto = async () => {
         try {
@@ -72,13 +76,13 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
     }, [message, photoUri])
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={mode ? styles.safeArea : styles.safeAreaBlack}>
             <KeyboardAvoidingView
                 style={styles.flex}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             >
                 <ScrollView
-                    contentContainerStyle={styles.scrollContent}
+                    contentContainerStyle={mode ? styles.scrollContent : styles.scrollContentBlack}
                     keyboardShouldPersistTaps="handled"
                 >
                     <Pressable
@@ -88,8 +92,8 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
                         <Text style={styles.backButtonText}>‹ Back</Text>
                     </Pressable>
                     <View style={styles.header}>
-                        <Text style={styles.headerTitle}>Create Order</Text>
-                        <Text style={styles.subtitle}>
+                        <Text style={mode ? styles.headerTitle : styles.headerTitleBlack}>Create Order</Text>
+                        <Text style={mode ? styles.subtitle : styles.subtitleBlack}>
                             Tell us what your car needs
                         </Text>
                     </View>
@@ -108,7 +112,7 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
                     </Pressable>
 
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>
+                        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
                             Service
                         </Text>
 
@@ -133,7 +137,7 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
                             <View style={styles.separator} />
                         </View>
 
-                        <Text style={styles.sectionTitle}>
+                        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
                             Additional details
                         </Text>
 
@@ -149,7 +153,7 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
                     </View>
                 </ScrollView>
 
-                <View style={styles.footer}>
+                <View style={mode ? styles.footer : styles.footerBlack}>
                     <Pressable
                         style={({ pressed }) => [
                             styles.createButton,
@@ -175,10 +179,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F2F2F7',
     },
+    safeAreaBlack: {
+        flex: 1,
+        backgroundColor: '#030304',
+    },
     flex: {
         flex: 1,
     },
     scrollContent: {
+        paddingHorizontal: 20,
+        paddingTop: 24,
+        paddingBottom: 24,
+    },
+    scrollContentBlack: {
+        backgroundColor:'#030304',
         paddingHorizontal: 20,
         paddingTop: 24,
         paddingBottom: 24,
@@ -204,7 +218,18 @@ const styles = StyleSheet.create({
         color: '#1C1C1E',
         letterSpacing: -0.5,
     },
+    headerTitleBlack: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#ffffff',
+        letterSpacing: -0.5,
+    },
     subtitle: {
+        marginTop: 6,
+        fontSize: 15,
+        color: '#8E8E93',
+    },
+    subtitleBlack: {
         marginTop: 6,
         fontSize: 15,
         color: '#8E8E93',
@@ -241,6 +266,12 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: '600',
         color: '#1C1C1E',
+        marginBottom: 2,
+    },
+    sectionTitleBlack: {
+        fontSize: 17,
+        fontWeight: '600',
+        color: '#ffffff',
         marginBottom: 2,
     },
     dropdownContainer: {
@@ -298,6 +329,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F7',
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: '#D1D1D6',
+    },
+    footerBlack: {
+        paddingHorizontal: 20,
+        paddingTop: 12,
+        paddingBottom: 16,
+        backgroundColor: '#030304',
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: '#030304',
     },
     createButton: {
         minHeight: 54,

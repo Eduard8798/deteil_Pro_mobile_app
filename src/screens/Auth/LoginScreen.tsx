@@ -46,7 +46,7 @@ const LoginScreen = ({navigation}:LoginScreenProps) => {
       }
       if (result.refreshToken && result.accessToken) {
         dispatch(setAuthenticated());
-        navigation.navigate('ProfileScreen');
+        // navigation.navigate('ProfileScreen');
       }
       if (!result.refreshToken && !result.accessToken){
         dispatch(setUnauthenticated());
@@ -104,28 +104,13 @@ const LoginScreen = ({navigation}:LoginScreenProps) => {
                   }}
               />
 
-              <Pressable style={styles.linkContainer} onPress={() => {
-              }}>
-                <Text style={styles.linkText}>Forgot your password?</Text>
-              </Pressable>
+
 
               <Pressable style={styles.primaryButton} onPress={()=> {
                  handleSubmit()
               }}>
                 <Text style={styles.primaryButtonText}>Login</Text>
               </Pressable>
-
-              <Text style={styles.orText}>or</Text>
-
-
-              <Pressable style={styles.guestButton} onPress={() => {
-                navigation.navigate('BookingScreen')
-              }}>
-                <Text style={styles.guestButtonText}
-
-                >Login as a guest</Text>
-              </Pressable>
-
               <View style={styles.footer}>
                 <Text style={styles.small}>Don't have an account?</Text>
                 <Pressable onPress={() => {

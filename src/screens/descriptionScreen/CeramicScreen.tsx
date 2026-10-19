@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, ScrollView } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/RootStack";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  ScrollView,
+} from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/RootStack';
+import { Ionicons } from '@expo/vector-icons';
+import { useAppSelector } from '../../store/storeHooks';
 
 interface CeramicScreenProps {}
 
@@ -12,43 +20,85 @@ const CeramicScreen: FC<CeramicScreenProps> = () => {
   const navigation = useNavigation();
   const route = useRoute<CeramicRouteProp>();
   const { image } = route.params;
+  const mode = useAppSelector(state => state.theme.mode);
 
   return (
       <ScrollView
-          style={styles.container}
+          style={mode ? styles.safeArea : styles.safeAreaBlack}
           contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
       >
-        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={28} color="black" />
+        <Pressable
+            style={mode ? styles.backButton : styles.backButtonBlack}
+            onPress={() => navigation.goBack()}
+        >
+          <Ionicons
+              name="chevron-back"
+              size={24}
+              color={mode ? '#1D1D1F' : '#F5F5F7'}
+          />
         </Pressable>
 
-        <Text
-            style={{
-              fontSize: 18,
-              color: '#949497',
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: '#222',
-              padding: 12,
-            }}
-        >
-          Ceramic Coating Application
+        <Text style={mode ? styles.eyebrow : styles.eyebrowBlack}>
+          CAR CARE
         </Text>
 
-        <Image style={styles.image} source={{ uri: image }} />
+        <Text style={mode ? styles.title : styles.titleBlack}>
+          Ceramic Coating
+        </Text>
 
-        <Text style={styles.textDescription}>
-          {"\t"}Ceramic coating is a modern solution for protecting your car’s
-          paintwork from external damage. It creates a strong, transparent layer
-          that enhances color depth, provides a brilliant gloss, and delivers a
-          long-lasting water-repellent (“anti-rain”) effect.{"\n\n"}
-          After the coating is applied, the surface becomes smooth and slick,
-          preventing dirt, dust, and water from sticking. The ceramic layer also
-          protects against UV rays, road chemicals, bird droppings, and minor
-          scratches.{"\n\n"}
-          Routine cleaning becomes much easier, and the glossy finish remains for
-          an extended period of time — keeping your vehicle looking freshly
-          detailed for years.
+        <Text style={mode ? styles.subtitle : styles.subtitleBlack}>
+          Brilliant gloss. Advanced protection.
+        </Text>
+
+        <Image
+            style={styles.image}
+            source={{ uri: image }}
+            resizeMode="cover"
+        />
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Shine that stands out.
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          Ceramic coating creates a durable, transparent layer over your car’s
+          paintwork. It enhances color depth and gloss, giving the surface a
+          smooth, refined finish.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Advanced surface protection
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          The coating helps protect against UV exposure, road contaminants, bird
+          droppings and other environmental factors. Its hydrophobic properties
+          help water bead up and roll off the surface.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          Easier maintenance
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          The smooth surface makes washing easier and helps dirt adhere less
+          readily. Your vehicle stays cleaner between washes and is easier to
+          maintain.
+        </Text>
+
+        <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+          A finish worth preserving
+        </Text>
+
+        <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+          With proper preparation and regular maintenance, ceramic coating can
+          preserve the appearance of your paintwork and maintain its glossy finish
+          over an extended period.
+        </Text>
+
+        <Text style={mode ? styles.footer : styles.footerBlack}>
+          Enhance the shine. Elevate the experience.
         </Text>
       </ScrollView>
   );
@@ -57,36 +107,152 @@ const CeramicScreen: FC<CeramicScreenProps> = () => {
 export default CeramicScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#030303',
+    backgroundColor: '#F5F5F7',
   },
-  image: {
-    width: 350,
-    height: 250,
-    margin: 50,
-    borderRadius: 16,
-  },
-  textDescription: {
-    color: '#ffffff',
-    alignItems: 'center',
-    maxWidth: 300,
+  safeAreaBlack: {
+    flex: 1,
+    backgroundColor: '#000000',
   },
   contentContainer: {
     alignItems: 'center',
-    padding: 100,
+    paddingTop: '20%',
+    paddingBottom: '12%',
+    paddingHorizontal: '6%',
   },
   backButton: {
     position: 'absolute',
-    top: 50,
-    left: 20,
+    top: '5%',
+    left: '5%',
     zIndex: 10,
-    backgroundColor: 'white',
-    borderRadius: 30,
-    padding: 6,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
+    width: '12%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E8E8ED',
+    borderRadius: 100,
+  },
+  backButtonBlack: {
+    position: 'absolute',
+    top: '5%',
+    left: '5%',
+    zIndex: 10,
+    width: '12%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1C1C1E',
+    borderRadius: 100,
+  },
+  eyebrow: {
+    color: '#86868B',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: '3%',
+  },
+  eyebrowBlack: {
+    color: '#98989D',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: '3%',
+  },
+  title: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: -1,
+    textAlign: 'center',
+    lineHeight: 38,
+  },
+  titleBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: -1,
+    textAlign: 'center',
+    lineHeight: 38,
+  },
+  subtitle: {
+    width: '90%',
+    color: '#6E6E73',
+    fontSize: 16,
+    lineHeight: 23,
+    textAlign: 'center',
+    marginTop: '3%',
+    marginBottom: '8%',
+  },
+  subtitleBlack: {
+    width: '90%',
+    color: '#A1A1A6',
+    fontSize: 16,
+    lineHeight: 23,
+    textAlign: 'center',
+    marginTop: '3%',
+    marginBottom: '8%',
+  },
+  image: {
+    width: '100%',
+    aspectRatio: 1.2,
+    borderRadius: 24,
+    marginBottom: '10%',
+  },
+  sectionTitle: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: -0.4,
+    textAlign: 'left',
+    marginBottom: '3%',
+    marginTop: '3%',
+  },
+  sectionTitleBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: -0.4,
+    textAlign: 'left',
+    marginBottom: '3%',
+    marginTop: '3%',
+  },
+  textDescription: {
+    width: '100%',
+    color: '#6E6E73',
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left',
+    marginBottom: '5%',
+  },
+  textDescriptionBlack: {
+    width: '100%',
+    color: '#A1A1A6',
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left',
+    marginBottom: '5%',
+  },
+  footer: {
+    width: '100%',
+    color: '#1D1D1F',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: '8%',
+  },
+  footerBlack: {
+    width: '100%',
+    color: '#F5F5F7',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: '8%',
   },
 });

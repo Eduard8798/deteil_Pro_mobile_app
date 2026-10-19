@@ -33,11 +33,20 @@ export const orderApi = createApi({
             }),
             invalidatesTags: ['Orders']
         }),
+        deletedOrder: build.mutation<void,number>  ({
+            query: (id) => ({
+                url:`/order/${id}`,
+                method: 'DELETE',
+
+            }),
+            invalidatesTags: ['Orders']
+        }),
     })
 })
 
 export const {
     useGetOrderQuery,
     useGetOrderByIdQuery,
-    useCreateOrderMutation
+    useCreateOrderMutation,
+    useDeletedOrderMutation
 }= orderApi;

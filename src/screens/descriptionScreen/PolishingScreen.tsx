@@ -1,80 +1,251 @@
 import React, { FC } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, ScrollView } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/RootStack";
-import { Ionicons } from "@expo/vector-icons";
+import {
+    Text,
+    StyleSheet,
+    Pressable,
+    Image,
+    ScrollView,
+} from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/RootStack';
+import { Ionicons } from '@expo/vector-icons';
+import { useAppSelector } from '../../store/storeHooks';
 
 interface PolishingScreenProps {}
 
-type ArmoredFilmRouteProp = RouteProp<RootStackParamList, 'DryCleaningScreen'>;
+type ArmoredFilmRouteProp = RouteProp<
+    RootStackParamList,
+    'DryCleaningScreen'
+>;
 
 const PolishingScreen: FC<PolishingScreenProps> = () => {
-  const navigation = useNavigation();
-  const route = useRoute<ArmoredFilmRouteProp>();
-  const { image } = route.params;
+    const navigation = useNavigation();
+    const route = useRoute<ArmoredFilmRouteProp>();
+    const { image } = route.params;
+    const mode = useAppSelector(state => state.theme.mode);
 
-  return (
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={28} color="black" />
-        </Pressable>
-
-        <Text
-            style={{
-              fontSize: 18,
-              color: '#949497',
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: '#222',
-              padding: 12,
-            }}
+    return (
+        <ScrollView
+            style={mode ? styles.safeArea : styles.safeAreaBlack}
+            contentContainerStyle={styles.contentContainer}
+            showsVerticalScrollIndicator={false}
         >
-          Car Body Polishing
-        </Text>
+            <Pressable
+                style={mode ? styles.backButton : styles.backButtonBlack}
+                onPress={() => navigation.goBack()}
+            >
+                <Ionicons
+                    name="chevron-back"
+                    size={24}
+                    color={mode ? '#1D1D1F' : '#F5F5F7'}
+                />
+            </Pressable>
 
-        <Image style={styles.image} source={{ uri: image }} />
+            <Text style={mode ? styles.eyebrow : styles.eyebrowBlack}>
+                CAR CARE
+            </Text>
 
-        <Text style={styles.textDescription}>
-          {"\t"}Polishing is a process that restores the gloss and depth of your car’s paintwork. During polishing, minor scratches, scuffs, wash marks, and oxidation are removed from the surface.
-          {"\n\t"} The result is a refreshed, mirror-like finish without reducing the paint thickness. This procedure not only enhances the car’s appearance but also prepares the surface for waxing or ceramic coating for long-lasting protection.
-        </Text>
-      </ScrollView>
-  );
+            <Text style={mode ? styles.title : styles.titleBlack}>
+                Car Body Polishing
+            </Text>
+
+            <Text style={mode ? styles.subtitle : styles.subtitleBlack}>
+                Restore the gloss. Reveal the finish.
+            </Text>
+
+            <Image
+                style={styles.image}
+                source={{ uri: image }}
+                resizeMode="cover"
+            />
+
+            <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+                Bring back the brilliance.
+            </Text>
+
+            <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+                Professional paint correction helps restore the depth and gloss of
+                your vehicle’s finish. Depending on the paint condition, polishing can
+                reduce the appearance of swirl marks, light scratches and oxidation.
+            </Text>
+
+            <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+                Precision in every detail
+            </Text>
+
+            <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+                The process uses specialized polishing compounds and machine techniques
+                to refine the clear coat and improve paint clarity. The appropriate
+                method depends on the vehicle’s finish and paint thickness.
+            </Text>
+
+            <Text style={mode ? styles.sectionTitle : styles.sectionTitleBlack}>
+                A finish worth protecting
+            </Text>
+
+            <Text style={mode ? styles.textDescription : styles.textDescriptionBlack}>
+                After polishing, wax or ceramic coating can be applied to help protect
+                the refined surface and maintain its appearance. Polishing itself
+                removes a small amount of clear coat, so the process should be performed
+                carefully.
+            </Text>
+
+            <Text style={mode ? styles.footer : styles.footerBlack}>
+                Refined paint. Exceptional shine.
+            </Text>
+        </ScrollView>
+    );
 };
 
 export default PolishingScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#030303',
-  },
-  image: {
-    width: 350,
-    height: 250,
-    margin: 50,
-    borderRadius: 16,
-  },
-  textDescription: {
-    color: '#ffffff',
-    alignItems: 'center',
-    maxWidth: 300,
-  },
-  contentContainer: {
-    alignItems: 'center',
-    padding: 100,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 50,
-    left: 20,
-    zIndex: 10,
-    backgroundColor: 'white',
-    borderRadius: 30,
-    padding: 6,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#F5F5F7',
+    },
+    safeAreaBlack: {
+        flex: 1,
+        backgroundColor: '#000000',
+    },
+    contentContainer: {
+        alignItems: 'center',
+        paddingTop: '20%',
+        paddingBottom: '12%',
+        paddingHorizontal: '6%',
+    },
+    backButton: {
+        position: 'absolute',
+        top: '5%',
+        left: '5%',
+        zIndex: 10,
+        width: '12%',
+        aspectRatio: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#E8E8ED',
+        borderRadius: 100,
+    },
+    backButtonBlack: {
+        position: 'absolute',
+        top: '5%',
+        left: '5%',
+        zIndex: 10,
+        width: '12%',
+        aspectRatio: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1C1C1E',
+        borderRadius: 100,
+    },
+    eyebrow: {
+        color: '#86868B',
+        fontSize: 12,
+        fontWeight: '700',
+        letterSpacing: 2,
+        textAlign: 'center',
+        marginBottom: '3%',
+    },
+    eyebrowBlack: {
+        color: '#98989D',
+        fontSize: 12,
+        fontWeight: '700',
+        letterSpacing: 2,
+        textAlign: 'center',
+        marginBottom: '3%',
+    },
+    title: {
+        width: '100%',
+        color: '#1D1D1F',
+        fontSize: 32,
+        fontWeight: '700',
+        letterSpacing: -1,
+        textAlign: 'center',
+        lineHeight: 38,
+    },
+    titleBlack: {
+        width: '100%',
+        color: '#F5F5F7',
+        fontSize: 32,
+        fontWeight: '700',
+        letterSpacing: -1,
+        textAlign: 'center',
+        lineHeight: 38,
+    },
+    subtitle: {
+        width: '90%',
+        color: '#6E6E73',
+        fontSize: 16,
+        lineHeight: 23,
+        textAlign: 'center',
+        marginTop: '3%',
+        marginBottom: '8%',
+    },
+    subtitleBlack: {
+        width: '90%',
+        color: '#A1A1A6',
+        fontSize: 16,
+        lineHeight: 23,
+        textAlign: 'center',
+        marginTop: '3%',
+        marginBottom: '8%',
+    },
+    image: {
+        width: '100%',
+        aspectRatio: 1.2,
+        borderRadius: 24,
+        marginBottom: '10%',
+    },
+    sectionTitle: {
+        width: '100%',
+        color: '#1D1D1F',
+        fontSize: 21,
+        fontWeight: '600',
+        letterSpacing: -0.4,
+        textAlign: 'left',
+        marginBottom: '3%',
+        marginTop: '3%',
+    },
+    sectionTitleBlack: {
+        width: '100%',
+        color: '#F5F5F7',
+        fontSize: 21,
+        fontWeight: '600',
+        letterSpacing: -0.4,
+        textAlign: 'left',
+        marginBottom: '3%',
+        marginTop: '3%',
+    },
+    textDescription: {
+        width: '100%',
+        color: '#6E6E73',
+        fontSize: 16,
+        lineHeight: 26,
+        textAlign: 'left',
+        marginBottom: '5%',
+    },
+    textDescriptionBlack: {
+        width: '100%',
+        color: '#A1A1A6',
+        fontSize: 16,
+        lineHeight: 26,
+        textAlign: 'left',
+        marginBottom: '5%',
+    },
+    footer: {
+        width: '100%',
+        color: '#1D1D1F',
+        fontSize: 14,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginTop: '8%',
+    },
+    footerBlack: {
+        width: '100%',
+        color: '#F5F5F7',
+        fontSize: 14,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginTop: '8%',
+    },
 });

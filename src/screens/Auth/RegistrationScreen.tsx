@@ -41,7 +41,7 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
                 asyncStorage.setItem('refreshToken', result.refreshToken)
             }
             if (result.refreshToken && result.accessToken) {
-                navigation.navigate('ListApplicationsScreen')
+                navigation.navigate('ProfileScreen')
             }
         }
         catch (e){
@@ -91,7 +91,7 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
             />
 
             <Pressable style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText} onPress={()=>navigation.navigate('CreateOrderScreen')}>Register</Text>
+                <Text style={styles.buttonText}>Register</Text>
             </Pressable>
 
             <Text style={styles.link}
