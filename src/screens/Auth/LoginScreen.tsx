@@ -46,7 +46,6 @@ const LoginScreen = ({navigation}:LoginScreenProps) => {
       }
       if (result.refreshToken && result.accessToken) {
         dispatch(setAuthenticated());
-        // navigation.navigate('ProfileScreen');
       }
       if (!result.refreshToken && !result.accessToken){
         dispatch(setUnauthenticated());

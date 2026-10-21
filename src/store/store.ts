@@ -3,12 +3,14 @@ import {authApi} from "./endpoints/authApi";
 import {orderApi} from "./endpoints/orderApi";
 import authSlice from "./slices/authSlice";
 import themeSlice from "./slices/themeSlice";
+import {userApi} from "./endpoints/userApi";
 
 
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
         [orderApi.reducerPath]: orderApi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
         auth: authSlice,
         theme: themeSlice
     },
@@ -16,6 +18,7 @@ export const store = configureStore({
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(orderApi.middleware)
+            .concat(userApi.middleware)
 
 })
 

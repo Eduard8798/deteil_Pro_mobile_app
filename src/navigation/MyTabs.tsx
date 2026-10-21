@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import WashScreen from '../screens/WashScreen';
-import NewsScreen from "../screens/NewsScreen";
+import Setting from "../screens/Setting";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import {Ionicons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
@@ -14,11 +14,12 @@ import {useAppDispatch, useAppSelector} from "../store/storeHooks";
 export type RootTabParamList = {
     Home: undefined;
     Wash: undefined;
-    News: { name: "John" };
+    Setting: undefined;
     Profile: undefined;
     MapScreen: undefined;
     BookingScreen:undefined;
     RegistrationScreen:undefined;
+
 
 };
 
@@ -77,8 +78,8 @@ const MyTabs = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Wash') {
                         iconName = focused ? 'water' : 'water-outline';
-                    } else if (route.name === 'News') {
-                        iconName = focused ? 'newspaper' : 'newspaper-outline';
+                    } else if (route.name === 'Setting') {
+                        iconName = focused ? 'settings' : 'settings-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline';
                     }
@@ -90,7 +91,7 @@ const MyTabs = () => {
         >
             <Tab.Screen  name="Home" component={HomeScreen} options={{title: 'Home'}}/>
             <Tab.Screen name="Wash" component={WashScreen} options={{title: 'Wash'}}/>
-            <Tab.Screen name="News" component={NewsScreen} options={{title: 'News'}}/>
+            <Tab.Screen name="Setting" component={Setting} options={{title: 'Setting'}}/>
             <Tab.Screen name="Profile" component={ProfileScreen} options={{title: 'Profile'}}/>
         </Tab.Navigator>
     );

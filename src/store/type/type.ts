@@ -29,3 +29,8 @@ export type OrderBody = {
     url_photo: string;
 }
 
+export type UserPasswordRequest = {
+    phone:string;
+    password:string;
+}
+
