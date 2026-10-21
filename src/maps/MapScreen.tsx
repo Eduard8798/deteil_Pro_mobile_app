@@ -42,8 +42,8 @@ const MapScreen: FC = () => {
 
                 if (status !== 'granted') {
                     Alert.alert(
-                        'Доступ до геолокації',
-                        'Дозволь доступ до геолокації в налаштуваннях телефону, щоб побудувати маршрут.',
+                        'Access to geolocation',
+                        'Allow access to geolocation in your phone settings to get directions.',
                     );
                     return;
                 }
@@ -74,8 +74,8 @@ const MapScreen: FC = () => {
             } catch (error) {
                 console.error('Location error:', error);
                 Alert.alert(
-                    'Помилка',
-                    'Не вдалося отримати твоє місцезнаходження. Перевір GPS і спробуй ще раз.',
+                    'Error',
+                    'Unable to get your location. Check your GPS and try again.',
                 );
             } finally {
                 setLoading(false);
@@ -88,8 +88,8 @@ const MapScreen: FC = () => {
     const handleBuildRoute = async () => {
         if (!location) {
             Alert.alert(
-                'Геолокація недоступна',
-                'Не вдалося визначити твоє поточне місцезнаходження.',
+                'Geolocation unavailable',
+                'Unable to determine your current location.',
             );
             return;
         }
@@ -107,8 +107,8 @@ const MapScreen: FC = () => {
         } catch (error) {
             console.error('Navigation error:', error);
             Alert.alert(
-                'Помилка',
-                'Не вдалося відкрити навігацію.',
+                'Error',
+                'Failed to open navigation',
             );
         }
     };
@@ -118,7 +118,7 @@ const MapScreen: FC = () => {
             <View style={styles.loader}>
                 <ActivityIndicator size="large" color="#F5C400" />
                 <Text style={styles.loadingText}>
-                    Визначаємо місцезнаходження...
+                    Determining location...
                 </Text>
             </View>
         );
@@ -128,7 +128,7 @@ const MapScreen: FC = () => {
         return (
             <View style={styles.loader}>
                 <Text style={styles.errorText}>
-                    Не вдалося отримати геолокацію.
+                    Failed to get geolocation.
                 </Text>
 
                 <Pressable
@@ -136,7 +136,7 @@ const MapScreen: FC = () => {
                     onPress={() => navigation.goBack()}
                 >
                     <Text style={styles.routeButtonText}>
-                        Назад
+                       Back
                     </Text>
                 </Pressable>
             </View>
@@ -155,7 +155,7 @@ const MapScreen: FC = () => {
                 <Marker
                     coordinate={STUDIO_LOCATION}
                     title="Detailing Studio"
-                    description="Наша детейлінг-студія"
+                    description="Our Detailing Studio"
                 />
             </MapView>
 
@@ -172,12 +172,12 @@ const MapScreen: FC = () => {
 
             <View style={styles.bottomPanel}>
                 <Text style={styles.title}>
-                    Маршрут до студії
+                    Directions to the studio
                 </Text>
 
                 <Text style={styles.description}>
-                    Натисни кнопку, щоб відкрити навігацію
-                    та прокласти автомобільний маршрут.
+                    Press the button to open navigation
+                    and get driving directions.
                 </Text>
 
                 <Pressable
@@ -190,7 +190,7 @@ const MapScreen: FC = () => {
                         color="#111"
                     />
                     <Text style={styles.routeButtonText}>
-                        Побудувати маршрут
+                        Get directions
                     </Text>
                 </Pressable>
             </View>

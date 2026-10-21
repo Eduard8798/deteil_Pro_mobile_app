@@ -2,7 +2,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MyTabs from './MyTabs';
-import MapScreen from '../page/MapScreen';
+import MapScreen from '../maps/MapScreen';
 import ArmoredScreen from "../screens/descriptionScreen/ArmoredScreen";
 import VacuumScreen from "../screens/descriptionScreen/VacuumScreen";
 import TonerScreen from "../screens/descriptionScreen/TonerScreen";

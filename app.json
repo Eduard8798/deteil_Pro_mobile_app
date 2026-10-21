@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "deteilingPro",
-    "slug": "deteilingPro",
+    "name": "Detailing Studio",
+    "slug": "D Studio",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "predictiveBackGestureEnabled": false

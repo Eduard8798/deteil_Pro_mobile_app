@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RootTabParamList} from "../navigation/MyTabs";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
-import MapScreenNavigation from "../page/MapScreenNavigation";
+import MapScreenNavigation from "../maps/MapScreenNavigation";
 import {useAppSelector} from "../store/storeHooks";
 
 

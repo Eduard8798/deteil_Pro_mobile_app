@@ -67,14 +67,14 @@ const ChangePassword = ({navigation}:IChangePassword) => {
             <View style={styles.content}>
                 <View style={styles.contentTextBlock}>
                     <Text style={mode ? styles.title : styles.titleBlack}>
-                        Смена пароля
+                        Change Password
                     </Text>
                 </View>
 
 
                 <View style={mode ? styles.form : styles.formBlack}>
                     <Text style={mode ? styles.label : styles.labelBlack}>
-                        Твой номер телефона
+                        Number phone
                     </Text>
 
                     <TextInput
@@ -89,12 +89,12 @@ const ChangePassword = ({navigation}:IChangePassword) => {
                     />
 
                     <Text style={mode ? styles.label : styles.labelBlack}>
-                        Новый пароль
+                        New password
                     </Text>
 
                     <TextInput
                         style={mode ? styles.input : styles.inputBlack}
-                        placeholder="Введи новый пароль"
+                        placeholder="Enter new password"
                         placeholderTextColor={mode ? '#BBBBBB' : '#777777'}
                         secureTextEntry
                         value={form.password}
@@ -105,10 +105,10 @@ const ChangePassword = ({navigation}:IChangePassword) => {
 
                     <Pressable
                         style={mode ? styles.button : styles.buttonBlack}
-                        onPress={()=>{changePassword(), navigation.goBack()}}
+                        onPress={()=>{changePassword() , navigation.goBack()}}
                     >
                         <Text style={styles.buttonText}>
-                            Сменить пароль
+                           Change password
                         </Text>
                     </Pressable>
                 </View>

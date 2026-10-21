@@ -66,7 +66,7 @@ const RegistrationScreen: FC<RegistrationScreenProps> = ({navigation}) => {
             <TextInput
                 style={styles.input}
                 placeholder="Name"
-                placeholderTextColor="Artur"
+                placeholderTextColor="#999"
                 value={dataForm.name}
                 onChangeText={(text)=> {changeValueDataLogin('name',text)}}
             />

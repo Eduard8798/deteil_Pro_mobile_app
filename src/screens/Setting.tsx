@@ -36,11 +36,11 @@ const Setting = ({ navigation }: SettingProps) => {
                 <View style={mode ? styles.settingItem : styles.settingItemBlack}>
                     <View>
                         <Text style={mode ? styles.settingTitle : styles.settingTitleBlack}>
-                            Тёмная тема
+                           Dark mode
                         </Text>
 
                         <Text style={mode ? styles.settingDescription : styles.settingDescriptionBlack}>
-                            {mode ? 'Включена' : 'Выключена'}
+                            {mode ? 'On' : 'Off'}
                         </Text>
                     </View>
 
@@ -55,7 +55,7 @@ const Setting = ({ navigation }: SettingProps) => {
                     style={mode ? styles.settingItem : styles.settingItemBlack}
                 >
                     <Text style={mode ? styles.settingTitle : styles.settingTitleBlack}>
-                        Сменить пароль
+                        Change password
                     </Text>
 
                     <Text style={mode ? styles.arrow : styles.arrowBlack}>

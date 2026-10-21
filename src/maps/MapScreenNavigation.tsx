@@ -3,10 +3,6 @@ import {StyleSheet, View, Image, Text, Alert, ActivityIndicator} from 'react-nat
 import {calculateDistance} from "../utils/calculateDistance";
 import * as Location from 'expo-location';
 
-interface MapScreenNavigationProps {
-
-}
-
 const STUDIO = {
     id: 1,
     name: 'Detailing Studio',
@@ -27,8 +23,8 @@ const MapScreenNavigation = () => {
 
                 if (status !== 'granted') {
                     Alert.alert(
-                        'Геолокация',
-                        'Разреши доступ к местоположению, чтобы увидеть расстояние.',
+                        'Geolocation',
+                        'Allow access to your location to see the distance.',
                     );
                     return;
                 }
