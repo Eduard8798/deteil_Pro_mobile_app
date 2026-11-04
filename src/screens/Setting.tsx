@@ -40,7 +40,7 @@ const Setting = ({ navigation }: SettingProps) => {
                         </Text>
 
                         <Text style={mode ? styles.settingDescription : styles.settingDescriptionBlack}>
-                            {mode ? 'On' : 'Off'}
+                            {mode ? 'Off':'On' }
                         </Text>
                     </View>
 
@@ -72,13 +72,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop:'20%',
-        backgroundColor: '#121212',
+        backgroundColor: '#F5F5F5',
 
     },
     containerBlack: {
         flex: 1,
         paddingTop:'20%',
-        backgroundColor: '#F5F5F5',
+
+        backgroundColor: '#121212',
 
 
     },
@@ -90,13 +91,15 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: 'bold',
         marginBottom: 24,
-        color: '#FFFFFF',
+
+        color: '#222222',
     },
     titleBlack: {
         fontSize: 26,
         fontWeight: 'bold',
         marginBottom: 24,
-        color: '#222222',
+        color: '#FFFFFF',
+
     },
     settingItem: {
         width: '100%',
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: '4%',
         borderRadius: 12,
         marginBottom: '3%',
-        backgroundColor: '#252525',
+        backgroundColor: '#FFFFFF',
     },
     settingItemBlack: {
         width: '100%',
@@ -118,17 +121,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: '4%',
         borderRadius: 12,
         marginBottom: '3%',
-        backgroundColor: '#FFFFFF',
+
+        backgroundColor: '#252525',
     },
     settingTitle: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: '#222222',
     },
     settingTitleBlack: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#222222',
+
+        color: '#FFFFFF',
     },
     settingDescription: {
         fontSize: 13,

@@ -41,12 +41,12 @@ const CreateOrderScreen = ({navigation}: ICreateOrderScreenProps) => {
         const finalMessage = message.trim();
 
         if (!photoUri) {
-            Alert.alert('Ошибка', 'Сначала выбери фотографию');
+            Alert.alert('Error', 'Please add a photo first');
             return;
         }
 
         if (!finalMessage) {
-            Alert.alert('Ошибка', 'Выбери услугу или введи описание');
+            Alert.alert('Error', 'Select a service or enter a description');
             return;
         }
         try {

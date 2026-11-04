@@ -61,7 +61,7 @@ const ChangePassword = ({navigation}:IChangePassword) => {
                 onPress={() => navigation.goBack()}
             >
                 <Text style={mode ? styles.backText : styles.backTextBlack}>
-                    {'< Back'}
+                    ‹ Back
                 </Text>
             </Pressable>
             <View style={styles.content}>
@@ -121,12 +121,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop:'20%',
-        backgroundColor: '#121212',
+        backgroundColor: '#F5F5F5',
     },
     containerBlack: {
         flex: 1,
         paddingTop:'20%',
-        backgroundColor: '#F5F5F5',
+
+        backgroundColor: '#121212',
     },
     content: {
         paddingHorizontal: '5%',
@@ -150,45 +151,50 @@ const styles = StyleSheet.create({
 
     backText: {
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#007AFF',
+
     },
 
     backTextBlack: {
         fontSize: 16,
-        color: '#222222',
+        color: '#007AFF',
+
     },
     title: {
         fontSize: 26,
         fontWeight: 'bold',
-        color: '#FFFFFF',
+        color: '#222222',
         marginBottom: '6%',
     },
     titleBlack: {
         fontSize: 26,
         fontWeight: 'bold',
-        color: '#222222',
+        color: '#FFFFFF',
+
         marginBottom: '6%',
     },
     form: {
-        backgroundColor: '#252525',
+        backgroundColor: '#FFFFFF',
         padding: '5%',
         borderRadius: 12,
     },
     formBlack: {
-        backgroundColor: '#FFFFFF',
+
+        backgroundColor: '#252525',
         padding: '5%',
         borderRadius: 12,
     },
     label: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: '#222222',
         marginBottom: '2%',
     },
     labelBlack: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#222222',
+        color: '#FFFFFF',
+
         marginBottom: '2%',
     },
     input: {
@@ -197,7 +203,7 @@ const styles = StyleSheet.create({
         borderColor: '#555555',
         borderRadius: 8,
         padding: '4%',
-        color: '#FFFFFF',
+        color: '#ffffff',
         marginBottom: '6%',
     },
     inputBlack: {
@@ -211,14 +217,15 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '100%',
-        backgroundColor: '#444444',
+        backgroundColor: '#007AFF',
         paddingVertical: '4%',
         borderRadius: 8,
         alignItems: 'center',
     },
     buttonBlack: {
         width: '100%',
-        backgroundColor: '#222222',
+        backgroundColor: '#003095',
+
         paddingVertical: '4%',
         borderRadius: 8,
         alignItems: 'center',
